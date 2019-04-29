@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		3433F41BD562A0F6553EA68D /* Pods_HomeBudgetPL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E0A47B8067FC1F838B0BF3 /* Pods_HomeBudgetPL.framework */; };
 		D3A804DB227206E100A9F6A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A804DA227206E100A9F6A8 /* AppDelegate.swift */; };
-		D3A804DD227206E100A9F6A8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A804DC227206E100A9F6A8 /* ViewController.swift */; };
+		D3A804DD227206E100A9F6A8 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A804DC227206E100A9F6A8 /* AccountViewController.swift */; };
 		D3A804E0227206E100A9F6A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3A804DE227206E100A9F6A8 /* Main.storyboard */; };
 		D3A804E2227206E300A9F6A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3A804E1227206E300A9F6A8 /* Assets.xcassets */; };
 		D3A804E5227206E300A9F6A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3A804E3227206E300A9F6A8 /* LaunchScreen.storyboard */; };
-		D3C198902274C9C7007E72BA /* InomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C1988F2274C9C7007E72BA /* InomeViewController.swift */; };
+		D3C198902274C9C7007E72BA /* IncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C1988F2274C9C7007E72BA /* IncomeViewController.swift */; };
 		D3C3D8D1227734E0009C424E /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C3D8D0227734E0009C424E /* Account.swift */; };
 		D3C3D8D322773511009C424E /* Incomes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C3D8D222773511009C424E /* Incomes.swift */; };
 		D3C3D8D522773523009C424E /* Expenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C3D8D422773523009C424E /* Expenses.swift */; };
@@ -25,12 +25,12 @@
 		9AAABEB87257573AA0969479 /* Pods-HomeBudgetPL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeBudgetPL.debug.xcconfig"; path = "Target Support Files/Pods-HomeBudgetPL/Pods-HomeBudgetPL.debug.xcconfig"; sourceTree = "<group>"; };
 		D3A804D7227206E100A9F6A8 /* HomeBudgetPL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeBudgetPL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3A804DA227206E100A9F6A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D3A804DC227206E100A9F6A8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D3A804DC227206E100A9F6A8 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		D3A804DF227206E100A9F6A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D3A804E1227206E300A9F6A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3A804E4227206E300A9F6A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3A804E6227206E300A9F6A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D3C1988F2274C9C7007E72BA /* InomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InomeViewController.swift; sourceTree = "<group>"; };
+		D3C1988F2274C9C7007E72BA /* IncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
 		D3C3D8D0227734E0009C424E /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		D3C3D8D222773511009C424E /* Incomes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Incomes.swift; sourceTree = "<group>"; };
 		D3C3D8D422773523009C424E /* Expenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expenses.swift; sourceTree = "<group>"; };
@@ -99,8 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				D3A804DA227206E100A9F6A8 /* AppDelegate.swift */,
-				D3A804DC227206E100A9F6A8 /* ViewController.swift */,
-				D3C1988F2274C9C7007E72BA /* InomeViewController.swift */,
+				D3A804DC227206E100A9F6A8 /* AccountViewController.swift */,
+				D3C1988F2274C9C7007E72BA /* IncomeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -257,11 +257,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3C3D8D522773523009C424E /* Expenses.swift in Sources */,
-				D3A804DD227206E100A9F6A8 /* ViewController.swift in Sources */,
+				D3A804DD227206E100A9F6A8 /* AccountViewController.swift in Sources */,
 				D3C3D8D322773511009C424E /* Incomes.swift in Sources */,
 				D3C3D8D1227734E0009C424E /* Account.swift in Sources */,
 				D3A804DB227206E100A9F6A8 /* AppDelegate.swift in Sources */,
-				D3C198902274C9C7007E72BA /* InomeViewController.swift in Sources */,
+				D3C198902274C9C7007E72BA /* IncomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InomeViewController: UIViewController {
+class IncomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -13,7 +13,7 @@
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Home" id="BYZ-38-t0r" customClass="ViewController" customModule="HomeBudgetPL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Home" id="BYZ-38-t0r" customClass="AccountViewController" customModule="HomeBudgetPL" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -58,20 +58,20 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="4em-1N-YVX">
-                                <rect key="frame" x="0.0" y="750.5" width="414" height="42.5"/>
+                                <rect key="frame" x="0.0" y="771" width="414" height="22"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1b-f4-vIl" userLabel="searchButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="138" height="42.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="138" height="22"/>
                                         <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Button" image="research"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJS-4N-CFL" userLabel="reportButton">
-                                        <rect key="frame" x="138" y="0.0" width="138" height="42.5"/>
+                                        <rect key="frame" x="138" y="0.0" width="138" height="22"/>
                                         <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Button" image="bars-chart"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yk7-lQ-zxt" userLabel="settingsButton">
-                                        <rect key="frame" x="276" y="0.0" width="138" height="42.5"/>
+                                        <rect key="frame" x="276" y="0.0" width="138" height="22"/>
                                         <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Button" image="settings"/>
                                     </button>
@@ -106,7 +106,7 @@
         <!--Przychód-->
         <scene sceneID="BIp-ra-8hQ">
             <objects>
-                <viewController title="Przychód" id="FtW-f5-va3" customClass="InomeViewController" customModule="HomeBudgetPL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Przychód" id="FtW-f5-va3" customClass="IncomeViewController" customModule="HomeBudgetPL" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" id="lMQ-oW-E6R">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
