@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 class Account : Object {
+    @objc dynamic var initialBalance = 0
     @objc dynamic var balance = 0
     @objc dynamic var category = ""
 

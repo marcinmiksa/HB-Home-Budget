@@ -58,29 +58,35 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Xe-qk-vQq">
-                                <rect key="frame" x="67.5" y="750.5" width="279" height="42.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="4em-1N-YVX">
+                                <rect key="frame" x="0.0" y="750.5" width="414" height="42.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1b-f4-vIl" userLabel="searchButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="139.5" height="42.5"/>
-                                        <inset key="contentEdgeInsets" minX="43" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1b-f4-vIl" userLabel="searchButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="138" height="42.5"/>
+                                        <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Button" image="research"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJS-4N-CFL" userLabel="reportButton">
-                                        <rect key="frame" x="139.5" y="0.0" width="139.5" height="42.5"/>
-                                        <inset key="contentEdgeInsets" minX="43" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <rect key="frame" x="138" y="0.0" width="138" height="42.5"/>
+                                        <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Button" image="bars-chart"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yk7-lQ-zxt" userLabel="settingsButton">
+                                        <rect key="frame" x="276" y="0.0" width="138" height="42.5"/>
+                                        <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Button" image="settings"/>
                                     </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="3Xe-qk-vQq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5gd-6U-YrY"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3Xe-qk-vQq" secondAttribute="bottom" constant="20" id="PEz-Dt-QEW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4em-1N-YVX" secondAttribute="trailing" id="F5p-6y-txm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4em-1N-YVX" secondAttribute="bottom" constant="20" id="R3i-aS-nii"/>
                             <constraint firstItem="tMf-DS-Lgj" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Xgd-kB-eei"/>
                             <constraint firstItem="tMf-DS-Lgj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lPR-VC-d6D"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tMf-DS-Lgj" secondAttribute="trailing" id="r67-UK-Ynt"/>
+                            <constraint firstItem="4em-1N-YVX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="vNK-Th-W4U"/>
                             <constraint firstItem="tMf-DS-Lgj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zak-O9-n4b"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -96,7 +102,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="956" y="17.733990147783253"/>
+            <point key="canvasLocation" x="955.07246376811599" y="17.410714285714285"/>
         </scene>
         <!--Przychód-->
         <scene sceneID="BIp-ra-8hQ">
@@ -193,5 +199,6 @@
     <resources>
         <image name="bars-chart" width="42.5" height="42.5"/>
         <image name="research" width="42.5" height="42.5"/>
+        <image name="settings" width="42.5" height="42.5"/>
     </resources>
 </document>
