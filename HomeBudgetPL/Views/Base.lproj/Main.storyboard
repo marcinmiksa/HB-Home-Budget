@@ -52,7 +52,6 @@
                                         </state>
                                         <connections>
                                             <action selector="expenseButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="64b-we-wj6"/>
-                                            <action selector="expensePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jZF-PF-cQd"/>
                                             <segue destination="z7R-3Z-Y8I" kind="show" identifier="expenseSegue" id="yWs-cr-QhG"/>
                                         </connections>
                                     </button>

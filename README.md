@@ -8,3 +8,6 @@ Xcode 10
 
 CocoaPods
 Reaml
+
+## Installing
+terminal - >pod install 
