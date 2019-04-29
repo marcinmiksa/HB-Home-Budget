@@ -7,13 +7,23 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var balanceView: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
+    
+    @IBAction func incomeButttonPressed(_ sender: Any) {
+        
+    }
+    
+    @IBAction func expenseButtonPressed(_ sender: Any) {
+        
+    }
 }
 

@@ -13,7 +13,7 @@ class Account : Object {
     @objc dynamic var balance = 0
     @objc dynamic var category = ""
 
-    
+    //relacja 1 do wielu
     let transfers = List<Transfer>()
 }
 
