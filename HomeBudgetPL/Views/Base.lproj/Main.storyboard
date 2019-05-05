@@ -107,7 +107,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="955.07246376811599" y="17.410714285714285"/>
+            <point key="canvasLocation" x="954" y="17"/>
         </scene>
         <!--Przychód-->
         <scene sceneID="BIp-ra-8hQ">
@@ -183,7 +183,7 @@
         <!--Ustawienia-->
         <scene sceneID="3CV-BX-0pu">
             <objects>
-                <viewController id="1q7-ZL-ODo" sceneMemberID="viewController">
+                <viewController id="1q7-ZL-ODo" customClass="SettingsViewController" customModule="HomeBudgetPL" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9nA-cb-RQx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -204,6 +204,9 @@
                                 <rect key="frame" x="172.5" y="481.5" width="69" height="45"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
                                 <state key="normal" title="Zapisz"/>
+                                <connections>
+                                    <action selector="initialBalanceButtonPressed:" destination="1q7-ZL-ODo" eventType="touchUpInside" id="Smb-EB-NHn"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -218,6 +221,9 @@
                         <viewLayoutGuide key="safeArea" id="5KN-EA-jcT"/>
                     </view>
                     <navigationItem key="navigationItem" title="Ustawienia" id="IYw-Wh-BuA"/>
+                    <connections>
+                        <outlet property="initialBalanceView" destination="aod-Dt-ZZb" id="6EQ-bx-hDI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nKx-Pp-SHd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

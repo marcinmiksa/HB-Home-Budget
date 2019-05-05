@@ -9,15 +9,16 @@
 import UIKit
 import RealmSwift
 
-class AccountViewController: UIViewController {
+class AccountViewController: UIViewController, CanReceive {
     
     @IBOutlet weak var balanceView: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
+        // ustawienie "<" do przemieszczania sie miedzy controllerami
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
     }
     
     @IBAction func incomeButttonPressed(_ sender: Any) {
@@ -27,4 +28,20 @@ class AccountViewController: UIViewController {
     @IBAction func expenseButtonPressed(_ sender: Any) {
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "settingsSegue" {
+            
+            let secondVC = segue.destination as! SettingsViewController
+            
+            secondVC.delegate = self
+            
+        }
+    }
+    
+    func dataReceived(data: String) {
+        balanceView.text = data
+    }
+    
 }
