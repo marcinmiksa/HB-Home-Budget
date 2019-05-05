@@ -18,28 +18,32 @@ class SettingsViewController: UIViewController {
     
     var delegate : CanReceive?
     
-    var balanceInit = ""
+    var balanceInit = 0
     
     let realm = try! Realm()
     
-    //var balanceInitRealm = Account()
     
     @IBOutlet weak var initialBalanceView: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        initialBalanceView.text = balanceInit
+        initialBalanceView.text = String(balanceInit)
         
     }
     
     @IBAction func initialBalanceButtonPressed(_ sender: Any) {
-
+        
         delegate?.dataReceived(data: initialBalanceView.text!)
         
-//        try! realm.write {
-//            balanceInitRealm.initialBalance = balanceInit
-//        }
+        let balanceInitRealm = Account()
+        
+        balanceInitRealm.initialBalance = 20
+        
+        try! realm.write {
+            realm.add(balanceInitRealm, update: true)
+            
+        }
         
     }
     
