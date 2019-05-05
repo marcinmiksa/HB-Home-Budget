@@ -1,31 +1,26 @@
-//
-//  ViewController.swift
-//  HomeBudgetPL
-//
-//  Created by Marcin M on 25/04/2019.
-//  Copyright © 2019 Marcin M. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 
 class AccountViewController: UIViewController, CanReceive {
     
+    let realm = try! Realm()
+    
+    var balanceRealm = Account()
+    
     @IBOutlet weak var balanceView: UILabel!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         // ustawienie "<" do przemieszczania sie miedzy controllerami
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-    }
-    
-    @IBAction func incomeButttonPressed(_ sender: Any) {
+        let balanceText = realm.objects(Account.self)
         
-    }
-    
-    @IBAction func expenseButtonPressed(_ sender: Any) {
+        print(balanceText)
+        
+        balanceView.text = String(balanceText[0].balance)
         
     }
     
@@ -38,10 +33,21 @@ class AccountViewController: UIViewController, CanReceive {
             secondVC.delegate = self
             
         }
+        
     }
     
     func dataReceived(data: String) {
+        
         balanceView.text = data
+        
+        balanceRealm.balance = Double(data)!
+        
+        try! realm.write {
+            
+            realm.add(balanceRealm, update: true)
+            
+        }
+        
     }
     
 }

@@ -8,6 +8,7 @@ class CategoryType : Object {
     
     override static func primaryKey() -> String? {
         return "id"
+        
     }
     
     // relacja 1 do 1
