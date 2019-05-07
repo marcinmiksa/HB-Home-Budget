@@ -5,7 +5,7 @@ class AccountViewController: UIViewController, CanReceive {
     
     let realm = try! Realm()
     
-    var balanceRealm = Account()
+    let balanceRealm = Account()
     
     @IBOutlet weak var balanceView: UILabel!
     
@@ -20,7 +20,8 @@ class AccountViewController: UIViewController, CanReceive {
         
         print(balanceText)
         
-        balanceView.text = String(balanceText[0].balance)
+        // ustawienie wartosci poczatkowej 0.0 gdy odpalamy po raz pierwszy program - jest to wartosc domyslna
+        balanceView.text = "\(balanceText.first?.balance ?? 0.0)"
         
     }
     
@@ -44,7 +45,7 @@ class AccountViewController: UIViewController, CanReceive {
         
         try! realm.write {
             
-            realm.add(balanceRealm, update: true)
+            self.realm.add(balanceRealm, update: true)
             
         }
         
