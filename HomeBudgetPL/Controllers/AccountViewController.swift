@@ -4,10 +4,9 @@ import RealmSwift
 class AccountViewController: UIViewController, CanReceive {
     
     let realm = try! Realm()
+    let accountObject = Account()
     
-    let balanceRealm = Account()
-    
-    @IBOutlet weak var balanceView: UILabel!
+    @IBOutlet weak var balanceLabel: UILabel!
     
     override func viewDidLoad() {
         
@@ -16,12 +15,12 @@ class AccountViewController: UIViewController, CanReceive {
         // ustawienie "<" do przemieszczania sie miedzy controllerami
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-        let balanceText = realm.objects(Account.self)
+        let balanceValue = realm.object(ofType: Account.self, forPrimaryKey: 1)
         
-        print(balanceText)
+        print(balanceValue!)
         
-        // ustawienie wartosci poczatkowej 0.0 gdy odpalamy po raz pierwszy program - jest to wartosc domyslna
-        balanceView.text = "\(balanceText.first?.balance ?? 0.0)"
+        // ustawienie wartosci poczatkowej, gdy uruchamiamy po raz pierwszy program
+        balanceLabel.text = "\(balanceValue?.balance ?? 0.0)"
         
     }
     
@@ -39,13 +38,20 @@ class AccountViewController: UIViewController, CanReceive {
     
     func dataReceived(data: String) {
         
-        balanceView.text = data
+        balanceLabel.text = data
+        accountObject.balance = Double(data)!
         
-        balanceRealm.balance = Double(data)!
-        
-        try! realm.write {
+        // funkcja pozwala na aktualizacje wartosci salda
+        func updateAccountRealm(account: Account){
             
-            self.realm.add(balanceRealm, update: true)
+            let updatedAccount = Account()
+            
+            updatedAccount.id = account.id
+            updatedAccount.balance = account.balance
+            
+            try! realm.write() {
+                realm.add(updatedAccount, update: true)
+            }
             
         }
         

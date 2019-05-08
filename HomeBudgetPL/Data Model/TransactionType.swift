@@ -3,7 +3,7 @@ import RealmSwift
 
 class TransactionType : Object {
     
-    @objc dynamic var id = 0
+    @objc dynamic var id = 1
     @objc dynamic var income = 0.0
     @objc dynamic var expense = 0.0
     @objc dynamic var note = ""

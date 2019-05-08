@@ -11,11 +11,8 @@ class SettingsViewController: UIViewController {
     
     var delegate : CanReceive?
     
-    var balanceInit = 0
-    
-    @IBOutlet weak var initialBalanceButtonView: UIButton!
-    
-    @IBOutlet weak var initialBalanceView: UITextField!
+    @IBOutlet weak var initBalanceButtonView: UIButton!
+    @IBOutlet weak var initBalanceTextField: UITextField!
     
     override func viewDidLoad() {
         
@@ -23,9 +20,10 @@ class SettingsViewController: UIViewController {
         
     }
     
-    @IBAction func initialBalanceButtonPressed(_ sender: Any) {
+    // przekazanie wartosci z drugiego kontrolera do pierwszego 
+    @IBAction func initBalanceButtonPressed(_ sender: Any) {
         
-        delegate?.dataReceived(data: initialBalanceView.text!)
+        delegate?.dataReceived(data: initBalanceTextField.text!)
         
     }
     
