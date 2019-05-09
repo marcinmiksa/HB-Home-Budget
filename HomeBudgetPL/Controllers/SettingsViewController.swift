@@ -18,6 +18,8 @@ class SettingsViewController: UIViewController {
         
         super.viewDidLoad()
         
+        initBalanceTextField.keyboardType = .decimalPad
+        
     }
     
     // przekazanie wartosci z drugiego kontrolera do pierwszego 

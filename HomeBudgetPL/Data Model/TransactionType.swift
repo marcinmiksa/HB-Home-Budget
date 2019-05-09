@@ -3,7 +3,7 @@ import RealmSwift
 
 class TransactionType : Object {
     
-    @objc dynamic var id = 1
+    @objc dynamic var id = 0
     @objc dynamic var income = 0.0
     @objc dynamic var expense = 0.0
     @objc dynamic var note = ""
@@ -12,6 +12,11 @@ class TransactionType : Object {
     override static func primaryKey() -> String? {
         return "id"
         
+    }
+    
+    func incrementID() -> Int {
+        let realm = try! Realm()
+        return (realm.objects(TransactionType.self).max(ofProperty: "id") as Int? ?? 0) + 1
     }
     
     var parentTransactionType = LinkingObjects(fromType: Account.self, property: "transactionType")

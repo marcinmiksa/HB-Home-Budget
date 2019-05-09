@@ -160,8 +160,18 @@
                         <viewLayoutGuide key="safeArea" id="2qS-FA-7Xn"/>
                     </view>
                     <navigationItem key="navigationItem" title="Przychód" id="GRh-u8-THL">
-                        <barButtonItem key="rightBarButtonItem" title="Zapisz" id="LP2-tI-9vq"/>
+                        <barButtonItem key="rightBarButtonItem" title="Zapisz" id="LP2-tI-9vq">
+                            <connections>
+                                <action selector="incomeButtonPressed:" destination="FtW-f5-va3" id="zMw-7A-hPR"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="categoryTextField" destination="DsE-cD-nvA" id="wUW-eu-6wW"/>
+                        <outlet property="dateTextField" destination="bbz-ra-ScG" id="38Z-wn-KGi"/>
+                        <outlet property="descriptionTextField" destination="D7H-vq-8AB" id="usM-m4-O24"/>
+                        <outlet property="incomeTextField" destination="ege-cj-XKT" id="2Q0-60-dbw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4A8-Vp-NVg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -210,7 +220,7 @@
                                         <rect key="frame" x="0.0" y="82.5" width="414" height="37"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" smartInsertDeleteType="yes"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ymW-PL-L6k" userLabel="initialBalanceButton">
                                         <rect key="frame" x="0.0" y="134.5" width="414" height="45"/>

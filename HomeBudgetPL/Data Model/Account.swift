@@ -3,7 +3,7 @@ import RealmSwift
 
 class Account : Object {
     
-    @objc dynamic var id = 1
+    @objc dynamic var id = 0
     @objc dynamic var balance = 0.0
     
     override static func primaryKey() -> String? {

@@ -15,7 +15,7 @@ class AccountViewController: UIViewController, CanReceive {
         // ustawienie "<" do przemieszczania sie miedzy controllerami
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-        let balanceValue = realm.object(ofType: Account.self, forPrimaryKey: 1)
+        let balanceValue = realm.object(ofType: Account.self, forPrimaryKey: 0)
         
         print(balanceValue ?? 0.0)
         
