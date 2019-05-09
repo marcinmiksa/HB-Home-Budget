@@ -1,30 +1,54 @@
-//
-//  ViewController.swift
-//  HomeBudgetPL
-//
-//  Created by Marcin M on 25/04/2019.
-//  Copyright © 2019 Marcin M. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 
-class AccountViewController: UIViewController {
+class AccountViewController: UIViewController, CanReceive {
     
-    @IBOutlet weak var balanceView: UILabel!
+    let realm = try! Realm()
+    let accountObject = Account()
+    
+    @IBOutlet weak var balanceLabel: UILabel!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
+        // ustawienie "<" do przemieszczania sie miedzy controllerami
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-    }
-    
-    @IBAction func incomeButttonPressed(_ sender: Any) {
+        
+        let balanceValue = realm.object(ofType: Account.self, forPrimaryKey: 1)
+        
+        print(balanceValue ?? 0.0)
+        
+        // ustawienie wartosci poczatkowej, gdy uruchamiamy po raz pierwszy program
+        balanceLabel.text = "\(balanceValue?.balance ?? 0.0)"
         
     }
     
-    @IBAction func expenseButtonPressed(_ sender: Any) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "settingsSegue" {
+            
+            let secondVC = segue.destination as! SettingsViewController
+            
+            secondVC.delegate = self
+            
+        }
         
     }
+    
+    func dataReceived(data: String) {
+        
+        balanceLabel.text = data
+        accountObject.balance = Double(data)!
+        
+        // dodatkowa stala pozwala na aktualizacje wartosci salda
+        let updatedAccount = Account()
+        updatedAccount.balance = Double(data)!
+        
+        try! realm.write() {
+            realm.add(updatedAccount, update: true)
+        }
+        
+    }
+    
 }
