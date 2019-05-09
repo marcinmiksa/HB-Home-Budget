@@ -17,7 +17,7 @@ class AccountViewController: UIViewController, CanReceive {
         
         let balanceValue = realm.object(ofType: Account.self, forPrimaryKey: 1)
         
-        print(balanceValue!)
+        print(balanceValue ?? 0.0)
         
         // ustawienie wartosci poczatkowej, gdy uruchamiamy po raz pierwszy program
         balanceLabel.text = "\(balanceValue?.balance ?? 0.0)"
@@ -41,18 +41,12 @@ class AccountViewController: UIViewController, CanReceive {
         balanceLabel.text = data
         accountObject.balance = Double(data)!
         
-        // funkcja pozwala na aktualizacje wartosci salda
-        func updateAccountRealm(account: Account){
-            
-            let updatedAccount = Account()
-            
-            updatedAccount.id = account.id
-            updatedAccount.balance = account.balance
-            
-            try! realm.write() {
-                realm.add(updatedAccount, update: true)
-            }
-            
+        // dodatkowa stala pozwala na aktualizacje wartosci salda
+        let updatedAccount = Account()
+        updatedAccount.balance = Double(data)!
+        
+        try! realm.write() {
+            realm.add(updatedAccount, update: true)
         }
         
     }
