@@ -1,10 +1,15 @@
 import UIKit
 import RealmSwift
 
-class IncomeViewController: UIViewController {
+class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let realm = try! Realm()
     var transactionObject = TransactionType()
+    var categoryObject = [Category]()
+    
+    var categoryPicker = UIPickerView()
+    
+    let category = ["Zdrowie", "Hobby", "Rachunki"]
     
     @IBOutlet weak var incomeTextField: UITextField!
     @IBOutlet weak var dateTextField: UITextField!
@@ -21,13 +26,19 @@ class IncomeViewController: UIViewController {
         dataPicker.datePickerMode = .date
         
         dataPicker.addTarget(self, action: #selector(IncomeViewController.dataChanged(dataPicker:)), for: .valueChanged)
-
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(IncomeViewController.viewTapped(gestureRecognizer:)))
         
         view.addGestureRecognizer(tapGesture)
         
         dateTextField.inputView = dataPicker
         
+        // wybor kategorii
+        categoryPicker.delegate = self
+        
+        categoryPicker.dataSource = self
+        
+        categoryTextField.inputView = categoryPicker
         
         print(transactionObject)
         
@@ -48,6 +59,31 @@ class IncomeViewController: UIViewController {
         dateTextField.text = dateFormatter.string(from: dataPicker.date)
         
         view.endEditing(true)
+        
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        
+        return 1
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        return category[row]
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        return category.count
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        categoryTextField.text = category[row]
+        self.view.endEditing(false)
         
     }
     
