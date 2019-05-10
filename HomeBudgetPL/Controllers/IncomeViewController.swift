@@ -4,7 +4,7 @@ import RealmSwift
 class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let realm = try! Realm()
-    var transactions = TransactionType()
+    
     var categories = CategoryType()
     
     //var categoryObject = [Category]()
@@ -89,17 +89,26 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     @IBAction func incomeButtonPressed(_ sender: Any) {
         
-        let double = Double(incomeTextField.text!)
-        transactions.income = double!
-        
+        let transactions = TransactionType()
         let updatedTransaction = TransactionType()
+        
+        let incomeTextFieldToDouble = Double(incomeTextField.text!)
+        transactions.income = incomeTextFieldToDouble!
         updatedTransaction.income = transactions.income
+        
+        transactions.dataTransaction = dateTextField.text!
+        updatedTransaction.dataTransaction = transactions.dataTransaction
+        
+        transactions.note = descriptionTextField.text!
+        updatedTransaction.note = transactions.note
         
         try! realm.write {
             realm.add(updatedTransaction, update: true)
             
         }
+        
         print(transactions)
+        
     }
     
 }

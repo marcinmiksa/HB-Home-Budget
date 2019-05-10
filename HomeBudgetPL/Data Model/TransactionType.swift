@@ -7,7 +7,7 @@ class TransactionType : Object {
     @objc dynamic var income = 0.0
     @objc dynamic var expense = 0.0
     @objc dynamic var note = ""
-    @objc dynamic var dataTransaction = Date()
+    @objc dynamic var dataTransaction = ""
     
     override static func primaryKey() -> String? {
         return "id"
