@@ -4,8 +4,10 @@ import RealmSwift
 class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let realm = try! Realm()
-    var transactionObject = TransactionType()
-    var categoryObject = [Category]()
+    var transactions = TransactionType()
+    var categories = CategoryType()
+    
+    //var categoryObject = [Category]()
     
     var categoryPicker = UIPickerView()
     
@@ -39,8 +41,6 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         categoryPicker.dataSource = self
         
         categoryTextField.inputView = categoryPicker
-        
-        print(transactionObject)
         
     }
     
@@ -89,16 +89,17 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     @IBAction func incomeButtonPressed(_ sender: Any) {
         
-        transactionObject.income = 200
+        let double = Double(incomeTextField.text!)
+        transactions.income = double!
         
-        //        let updatedTransaction = TransactionType()
-        //
-        //        updatedTransaction.note = transactionObject.note
+        let updatedTransaction = TransactionType()
+        updatedTransaction.income = transactions.income
         
         try! realm.write {
-            realm.add(transactionObject)
+            realm.add(updatedTransaction, update: true)
+            
         }
-        
+        print(transactions)
     }
     
 }

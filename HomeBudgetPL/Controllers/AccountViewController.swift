@@ -4,7 +4,7 @@ import RealmSwift
 class AccountViewController: UIViewController, CanReceive {
     
     let realm = try! Realm()
-    let accountObject = Account()
+    let account = Account()
     
     @IBOutlet weak var balanceLabel: UILabel!
     
@@ -39,7 +39,7 @@ class AccountViewController: UIViewController, CanReceive {
     func dataReceived(data: String) {
         
         balanceLabel.text = data
-        accountObject.balance = Double(data)!
+        account.balance = Double(data)!
         
         // dodatkowa stala pozwala na aktualizacje wartosci salda
         let updatedAccount = Account()
