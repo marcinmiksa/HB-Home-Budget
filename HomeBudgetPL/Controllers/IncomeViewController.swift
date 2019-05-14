@@ -5,7 +5,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     let realm = try! Realm()
     
-    var categories = CategoryType()
+    // var categories = CategoryType()
     
     //var categoryObject = [Category]()
     
@@ -89,25 +89,29 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     @IBAction func incomeButtonPressed(_ sender: Any) {
         
-        let transactions = TransactionType()
-        let updatedTransaction = TransactionType()
+        //var transactions = [TransactionType]()
+        
+        let newTransaction = TransactionType()
+        //let updatedTransaction = TransactionType()
+        
+        newTransaction.id = newTransaction.incrementID()
         
         let incomeTextFieldToDouble = Double(incomeTextField.text!)
-        transactions.income = incomeTextFieldToDouble!
-        updatedTransaction.income = transactions.income
+        newTransaction.income = incomeTextFieldToDouble!
+        //updatedTransaction.income = newTransaction.income
         
-        transactions.dataTransaction = dateTextField.text!
-        updatedTransaction.dataTransaction = transactions.dataTransaction
+        newTransaction.dataTransaction = dateTextField.text!
+        // updatedTransaction.dataTransaction = newTransaction.dataTransaction
         
-        transactions.note = descriptionTextField.text!
-        updatedTransaction.note = transactions.note
+        newTransaction.note = descriptionTextField.text!
+        //updatedTransaction.note = newTransaction.note
         
         try! realm.write {
-            realm.add(updatedTransaction, update: true)
-            
+            //transactions.append(newTransaction)
+            realm.add(newTransaction)
         }
         
-        print(transactions)
+        print(newTransaction)
         
     }
     
