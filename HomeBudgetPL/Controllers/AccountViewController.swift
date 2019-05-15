@@ -23,6 +23,7 @@ class AccountViewController: UIViewController, CanReceive {
         
         print(balanceValue ?? 0.0)
         
+        // MARK: Brak dynamicznego sumowania - dopiero po restarcie aplikacji wskazuje poprawna wartosc
         balanceLabel.text = "\(totalIncomes + (balanceValue?.balance ?? 0.0))"
         
         // odswieza widok

@@ -200,7 +200,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="transactionView" id="5hw-Vi-RQp">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="5hw-Vi-RQp">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5hw-Vi-RQp" id="xi7-d3-ihi">
@@ -210,8 +210,8 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="h9f-qw-qy4" id="KC0-dj-Cvu"/>
-                            <outlet property="delegate" destination="h9f-qw-qy4" id="Zav-Hl-bdF"/>
+                            <outlet property="dataSource" destination="h9f-qw-qy4" id="LQb-Kv-GN0"/>
+                            <outlet property="delegate" destination="h9f-qw-qy4" id="T94-F5-4k6"/>
                         </connections>
                     </tableView>
                 </tableViewController>
