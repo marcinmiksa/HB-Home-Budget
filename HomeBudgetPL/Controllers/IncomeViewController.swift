@@ -46,12 +46,6 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         view.setNeedsLayout()
         
-//        categories.categoryName = "lol"
-//
-//        try! realm.write {
-//            realm.add(categories)
-//        }
-        
     }
     
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer) {
@@ -108,13 +102,19 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         let incomeTextFieldToDouble = Double(incomeTextField.text!)
         
         if incomeTextField.text == "" || incomeTextFieldToDouble == 0 {
+            
             warningLabel.text = "Wprowadź kwotę"
             warningLabel.isEnabled = true
+            
         }
         else {
+            
             newTransaction.income = incomeTextFieldToDouble!
             warningLabel.text = ""
             warningLabel.isEnabled = false
+            
+            navigationController?.popViewController(animated: true)
+            
         }
         
         //updatedTransaction.income = newTransaction.income

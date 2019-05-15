@@ -16,15 +16,14 @@ class AccountViewController: UIViewController, CanReceive {
         
         // suma przychodow
         let totalIncomes: Double = realm.objects(TransactionType.self).sum(ofProperty: "income")
-        print(totalIncomes)
+        
+        print("Suma przychodow: \(totalIncomes)")
         
         let balanceValue = realm.object(ofType: Account.self, forPrimaryKey: 0)
         
         print(balanceValue ?? 0.0)
         
-        // MARK: POPRAW WYSWIETLANIE ORAZ DYNAMICZNA AKTUALIZACJE WARTOSCI PRZY DODANIU PRZYCHODU
-        // ustawienie wartosci poczatkowej, gdy uruchamiamy po raz pierwszy program
-        balanceLabel.text = "\(balanceValue?.balance ?? 0.0) + \(totalIncomes)"
+        balanceLabel.text = "\(totalIncomes + (balanceValue?.balance ?? 0.0))"
         
         // odswieza widok
         view.setNeedsLayout()

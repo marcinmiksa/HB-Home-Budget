@@ -9,6 +9,8 @@ protocol CanReceive {
 
 class SettingsViewController: UIViewController {
     
+    let realm = try! Realm()
+    
     var delegate : CanReceive?
     
     @IBOutlet weak var initBalanceButtonView: UIButton!
@@ -24,6 +26,16 @@ class SettingsViewController: UIViewController {
     @IBAction func initBalanceButtonPressed(_ sender: Any) {
         
         delegate?.dataReceived(data: initBalanceTextField.text!)
+        
+        // przejscie do poprzedniego kontrolera
+        navigationController?.popViewController(animated: true)
+        
+        // usuwamy wszystkieg transakcje po ustawieniu nowego salda
+        let allTransactions = realm.objects(TransactionType.self)
+        
+        try! realm.write {
+            realm.delete(allTransactions)
+        }
         
     }
     
