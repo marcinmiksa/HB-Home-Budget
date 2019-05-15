@@ -5,14 +5,14 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     let realm = try! Realm()
     
-    // var categories = CategoryType()
-    
-    //var categoryObject = [Category]()
+    var categories = CategoryType()
     
     var categoryPicker = UIPickerView()
     
     let category = ["Zdrowie", "Hobby", "Rachunki"]
     
+    @IBOutlet weak var saveIncomePressed: UIBarButtonItem!
+    @IBOutlet weak var warningLabel: UILabel!
     @IBOutlet weak var incomeTextField: UITextField!
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var categoryTextField: UITextField!
@@ -21,6 +21,8 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        warningLabel.isEnabled = false
         
         // kalendarz
         let dataPicker = UIDatePicker()
@@ -42,7 +44,13 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         categoryTextField.inputView = categoryPicker
         
-        //view.setNeedsLayout()
+        view.setNeedsLayout()
+        
+//        categories.categoryName = "lol"
+//
+//        try! realm.write {
+//            realm.add(categories)
+//        }
         
     }
     
@@ -98,7 +106,17 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         newTransaction.id = newTransaction.incrementID()
         
         let incomeTextFieldToDouble = Double(incomeTextField.text!)
-        newTransaction.income = incomeTextFieldToDouble!
+        
+        if incomeTextField.text == "" || incomeTextFieldToDouble == 0 {
+            warningLabel.text = "Wprowadź kwotę"
+            warningLabel.isEnabled = true
+        }
+        else {
+            newTransaction.income = incomeTextFieldToDouble!
+            warningLabel.text = ""
+            warningLabel.isEnabled = false
+        }
+        
         //updatedTransaction.income = newTransaction.income
         
         newTransaction.dataTransaction = dateTextField.text!
@@ -109,11 +127,13 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         try! realm.write {
             //transactions.append(newTransaction)
-            realm.add(newTransaction)
+            if newTransaction.income != 0 {
+                realm.add(newTransaction)
+            }
         }
         
         print(newTransaction)
-
+        
     }
     
 }
