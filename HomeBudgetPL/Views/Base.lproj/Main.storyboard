@@ -13,7 +13,7 @@
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Home" id="BYZ-38-t0r" customClass="AccountViewController" customModule="HomeBudgetPL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Home" id="BYZ-38-t0r" customClass="AccountViewController" customModule="HomeBudgetPL" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -42,6 +42,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="138" height="42.5"/>
                                         <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Button" image="research"/>
+                                        <connections>
+                                            <segue destination="h9f-qw-qy4" kind="show" identifier="transactionSegue" id="j0p-Ew-Gpz"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJS-4N-CFL" userLabel="reportButton">
                                         <rect key="frame" x="138" y="0.0" width="138" height="42.5"/>
@@ -115,7 +118,7 @@
         <!--Przychód-->
         <scene sceneID="BIp-ra-8hQ">
             <objects>
-                <viewController title="Przychód" id="FtW-f5-va3" customClass="IncomeViewController" customModule="HomeBudgetPL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Przychód" id="FtW-f5-va3" customClass="IncomeViewController" customModule="HomeBudgetPL" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" id="lMQ-oW-E6R">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -180,10 +183,38 @@
             </objects>
             <point key="canvasLocation" x="1717" y="-639"/>
         </scene>
+        <!--Report Table View Controller-->
+        <scene sceneID="5sF-gD-cVk">
+            <objects>
+                <tableViewController id="h9f-qw-qy4" customClass="ReportTableViewController" customModule="HomeBudgetPL" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="C8P-Jk-tMI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="transactionView" id="5hw-Vi-RQp">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5hw-Vi-RQp" id="xi7-d3-ihi">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="h9f-qw-qy4" id="KC0-dj-Cvu"/>
+                            <outlet property="delegate" destination="h9f-qw-qy4" id="Zav-Hl-bdF"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LGq-pZ-Oqv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="174" y="745"/>
+        </scene>
         <!--Raport-->
         <scene sceneID="I6p-hK-ZlK">
             <objects>
-                <viewController id="EMu-tl-ltD" sceneMemberID="viewController">
+                <viewController id="EMu-tl-ltD" customClass="ReportViewController" customModule="HomeBudgetPL" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3Fk-fi-BXy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -199,7 +230,7 @@
         <!--Ustawienia-->
         <scene sceneID="3CV-BX-0pu">
             <objects>
-                <viewController id="1q7-ZL-ODo" customClass="SettingsViewController" customModule="HomeBudgetPL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1q7-ZL-ODo" customClass="SettingsViewController" customModule="HomeBudgetPL" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9nA-cb-RQx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

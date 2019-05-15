@@ -42,6 +42,8 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         categoryTextField.inputView = categoryPicker
         
+        //view.setNeedsLayout()
+        
     }
     
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer) {
@@ -90,7 +92,6 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBAction func incomeButtonPressed(_ sender: Any) {
         
         //var transactions = [TransactionType]()
-        
         let newTransaction = TransactionType()
         //let updatedTransaction = TransactionType()
         
@@ -112,7 +113,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         }
         
         print(newTransaction)
-        
+
     }
     
 }
