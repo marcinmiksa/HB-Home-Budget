@@ -243,41 +243,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1Tp-GF-xDd">
-                                <rect key="frame" x="0.0" y="338.5" width="414" height="219.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="1Tp-GF-xDd">
+                                <rect key="frame" x="0.0" y="318" width="414" height="260.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ustaw saldo początkowe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GNI-eq-c43" userLabel="initialBalanceText">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dodaj kategorię transakcji" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sqm-S4-1pZ">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="33"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VhV-R1-uWh">
+                                        <rect key="frame" x="0.0" y="45" width="414" height="42.5"/>
+                                        <state key="normal" image="add-button"/>
+                                        <connections>
+                                            <action selector="addCategory:" destination="1q7-ZL-ODo" eventType="touchUpInside" id="YdA-w6-lVo"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ustaw saldo początkowe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GNI-eq-c43" userLabel="initialBalanceText">
+                                        <rect key="frame" x="0.0" y="99.5" width="414" height="33"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zmiana powoduje reset salda" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IUq-Pa-nqN">
-                                        <rect key="frame" x="0.0" y="43" width="414" height="19.5"/>
+                                        <rect key="frame" x="0.0" y="144.5" width="414" height="19.5"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                         <color key="textColor" red="1" green="0.34901960780000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aod-Dt-ZZb" userLabel="initialBalanceLabel">
-                                        <rect key="frame" x="0.0" y="72.5" width="414" height="37"/>
+                                        <rect key="frame" x="0.0" y="176" width="414" height="30"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" smartInsertDeleteType="yes"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ymW-PL-L6k" userLabel="initialBalanceButton">
-                                        <rect key="frame" x="0.0" y="119.5" width="414" height="45"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
-                                        <state key="normal" title="Zapisz"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ymW-PL-L6k" userLabel="initialBalanceButton">
+                                        <rect key="frame" x="0.0" y="218" width="414" height="42.5"/>
+                                        <state key="normal" image="save-button"/>
                                         <connections>
                                             <action selector="initBalanceButtonPressed:" destination="1q7-ZL-ODo" eventType="touchUpInside" id="Smb-EB-NHn"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VhV-R1-uWh">
-                                        <rect key="frame" x="0.0" y="174.5" width="414" height="45"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="24"/>
-                                        <state key="normal" title="Dodaj kategorię transakcji"/>
-                                        <connections>
-                                            <action selector="addCategory:" destination="1q7-ZL-ODo" eventType="touchUpInside" id="YdA-w6-lVo"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -379,9 +383,11 @@
     </scenes>
     <resources>
         <image name="add" width="42.5" height="42.5"/>
+        <image name="add-button" width="42.5" height="42.5"/>
         <image name="bars-chart" width="42.5" height="42.5"/>
         <image name="delete" width="42.5" height="42.5"/>
         <image name="research" width="42.5" height="42.5"/>
+        <image name="save-button" width="42.5" height="42.5"/>
         <image name="settings" width="42.5" height="42.5"/>
     </resources>
 </document>

@@ -20,6 +20,8 @@ class SettingsViewController: UIViewController {
         
         super.viewDidLoad()
         
+        initBalanceTextField.placeholder = "Saldo początkowe"
+        
     }
     
     // przekazanie wartosci z drugiego kontrolera do pierwszego 
@@ -49,10 +51,8 @@ class SettingsViewController: UIViewController {
             
             try! self.realm.write {
                 let newCategory = CategoryType()
-                
                 newCategory.id = newCategory.incrementID()
                 newCategory.categoryName = textField.text!
-                
                 self.realm.add(newCategory)
             }
             

@@ -13,10 +13,10 @@ class CategoryType : Object {
     
     func incrementID() -> Int {
         let realm = try! Realm()
-        return (realm.objects(TransactionType.self).max(ofProperty: "id") as Int? ?? 0) + 1
+        return (realm.objects(CategoryType.self).max(ofProperty: "id") as Int? ?? 0) + 1
     }
     
-    // relacja 1 do 1
-    @objc dynamic var relationWithTransaction: TransactionType?
-    
+    // relacja 1 do wielu
+    let categoryType = List<TransactionType>()
+
 }

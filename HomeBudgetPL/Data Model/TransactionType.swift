@@ -19,7 +19,6 @@ class TransactionType : Object {
         return (realm.objects(TransactionType.self).max(ofProperty: "id") as Int? ?? 0) + 1
     }
     
-    var parentTransactionType = LinkingObjects(fromType: Account.self, property: "transactionType")
-    var relationWithCategory = LinkingObjects(fromType: CategoryType.self, property: "relationWithTransaction")
-    
+    var parentAccount = LinkingObjects(fromType: Account.self, property: "transactionType")
+    var parentCategoryType = LinkingObjects(fromType: CategoryType.self, property: "categoryType")
 }
