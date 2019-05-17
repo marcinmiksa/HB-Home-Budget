@@ -49,10 +49,6 @@ class AccountViewController: UIViewController, CanReceive {
         balanceLabel.text = data
         account.balance = Double(data)!
         
-        // dodatkowa stala pozwala na aktualizacje wartosci salda
-        //let updatedAccount = Account()
-        //updatedAccount.balance = Double(data)!
-        
         try! realm.write() {
             realm.add(account, update: true)
         }

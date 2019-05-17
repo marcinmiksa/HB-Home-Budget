@@ -39,4 +39,34 @@ class SettingsViewController: UIViewController {
         
     }
     
+    @IBAction func addCategory(_ sender: Any) {
+        
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Dodaj kategorię transakcji", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Dodaj kategorię", style: .default) { (action) in
+            
+            try! self.realm.write {
+                let newCategory = CategoryType()
+                
+                newCategory.id = newCategory.incrementID()
+                newCategory.categoryName = textField.text!
+                
+                self.realm.add(newCategory)
+            }
+            
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Wprowadź kategorię"
+            textField = alertTextField
+            
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
 }
