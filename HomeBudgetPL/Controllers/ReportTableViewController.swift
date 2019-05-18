@@ -11,7 +11,10 @@ class ReportTableViewController: UITableViewController {
         
         super.viewDidLoad()
         
-        transactions = realm.objects(TransactionType.self)
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        
+        transactions = realm.objects(TransactionType.self).sorted(byKeyPath: "dataTransaction", ascending: false)
         
         tableView.reloadData()
         
@@ -29,17 +32,22 @@ class ReportTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
         if let transaction = transactions?[indexPath.row] {
             
-            cell.textLabel?.text = String(transaction.income)
-            //cell.detailTextLabel?.text = transaction.note
+            cell.textLabel?.text = "Data: \(transaction.dataTransaction)"
+            cell.detailTextLabel?.numberOfLines = 4;
+            cell.detailTextLabel?.text =
+                
+                //MARK: dodaj mozliwosc wyswietlania kategorii
+            "Przychód: \(transaction.income) zł \nWydatek: \(transaction.expense) zł \nKategoria: \(transaction.id) \nOpis: \(transaction.note)"
             
-            print("cell: \(cell)")
         }
         
         return cell
+        
     }
     
 }

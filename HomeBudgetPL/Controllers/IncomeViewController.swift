@@ -65,7 +65,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateFormat = "dd.MM.yyyy"
+        dateFormatter.dateFormat = "yyyy.MM.dd"
         
         dateTextField.text = dateFormatter.string(from: dataPicker.date)
         
