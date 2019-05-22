@@ -33,7 +33,7 @@ class SettingsViewController: UIViewController {
         navigationController?.popViewController(animated: true)
         
         // usuwamy wszystkieg transakcje po ustawieniu nowego salda
-        let allTransactions = realm.objects(TransactionType.self)
+        let allTransactions = realm.objects(Transactions.self)
         
         try! realm.write {
             realm.delete(allTransactions)
@@ -50,8 +50,7 @@ class SettingsViewController: UIViewController {
         let action = UIAlertAction(title: "Dodaj kategorię", style: .default) { (action) in
             
             try! self.realm.write {
-                let newCategory = CategoryType()
-                newCategory.id = newCategory.incrementID()
+                let newCategory = Categories()
                 newCategory.categoryName = textField.text!
                 self.realm.add(newCategory)
             }

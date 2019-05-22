@@ -191,10 +191,10 @@
             </objects>
             <point key="canvasLocation" x="1717" y="-639"/>
         </scene>
-        <!--Report Table View Controller-->
+        <!--Historia transakcji-->
         <scene sceneID="5sF-gD-cVk">
             <objects>
-                <tableViewController id="h9f-qw-qy4" customClass="ReportTableViewController" customModule="HomeBudgetPL" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="h9f-qw-qy4" customClass="TransactionsTableViewController" customModule="HomeBudgetPL" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="C8P-Jk-tMI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -230,6 +230,7 @@
                             <outlet property="delegate" destination="h9f-qw-qy4" id="T94-F5-4k6"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Historia transakcji" id="pJX-pA-vfu"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGq-pZ-Oqv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -242,10 +243,20 @@
                     <view key="view" contentMode="scaleToFill" id="3Fk-fi-BXy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4F-hl-L63" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="87" y="384" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="clc-qK-qcT"/>
                     </view>
                     <navigationItem key="navigationItem" title="Raport" id="Wcu-ZW-m3F"/>
+                    <connections>
+                        <outlet property="barView" destination="L4F-hl-L63" id="zaH-yQ-1OE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="toy-J4-dI8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -15,7 +15,7 @@ class AccountViewController: UIViewController, CanReceive {
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         // suma przychodow
-        let totalIncomes: Double = realm.objects(TransactionType.self).sum(ofProperty: "income")
+        let totalIncomes: Double = realm.objects(Transactions.self).sum(ofProperty: "income")
         
         print("Suma przychodow: \(totalIncomes)")
         

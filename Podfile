@@ -8,5 +8,6 @@ target 'HomeBudgetPL' do
 
 pod 'RealmSwift'
 pod 'SwipeCellKit'
+pod 'Charts'
 
 end

@@ -1,11 +1,11 @@
 import UIKit
 import RealmSwift
 
-class ReportTableViewController: UITableViewController {
+class TransactionsTableViewController: UITableViewController {
     
     let realm = try! Realm()
     
-    var transactions: Results<TransactionType>?
+    var transactions: Results<Transactions>?
     
     override func viewDidLoad() {
         
@@ -14,19 +14,21 @@ class ReportTableViewController: UITableViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
-        transactions = realm.objects(TransactionType.self).sorted(byKeyPath: "dataTransaction", ascending: false)
+        transactions = realm.objects(Transactions.self).sorted(byKeyPath: "dataTransaction", ascending: false)
         
         tableView.reloadData()
+        
+        print(transactions ?? 0)
         
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        
         return transactions?.count ?? 1
     }
     
@@ -42,7 +44,7 @@ class ReportTableViewController: UITableViewController {
             cell.detailTextLabel?.text =
                 
                 //MARK: dodaj mozliwosc wyswietlania kategorii
-            "Przychód: \(transaction.income) zł \nWydatek: \(transaction.expense) zł \nKategoria: \(transaction.id) \nOpis: \(transaction.note)"
+            "Przychód: \(transaction.income) zł \nWydatek: \(transaction.expense) zł \nKategoria: \(Categories().categoryName) \nOpis: \(transaction.note)"
             
         }
         
