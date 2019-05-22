@@ -40,12 +40,13 @@ class TransactionsTableViewController: UITableViewController {
         if let transaction = transactions?[indexPath.row] {
             
             cell.textLabel?.text = "Data: \(transaction.dataTransaction)"
-            cell.detailTextLabel?.numberOfLines = 4;
+            cell.detailTextLabel?.numberOfLines = 6;
             cell.detailTextLabel?.text =
                 
-                //MARK: dodaj mozliwosc wyswietlania kategorii
-            "Przychód: \(transaction.income) zł \nWydatek: \(transaction.expense) zł \nKategoria: \(Categories().categoryName) \nOpis: \(transaction.note)"
+                //MARK: popraw wyswietlanie kategorii - bez nawiasow
+            "Przychód: \(transaction.income) zł \nWydatek: \(transaction.expense) zł \nKategoria: \(transaction.parentCategories.value(forKey: "categoryName") ?? "") \nOpis: \(transaction.note)"
             
+            print(transaction.parentCategories)
         }
         
         return cell

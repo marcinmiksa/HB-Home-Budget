@@ -99,79 +99,48 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     @IBAction func incomeButtonPressed(_ sender: Any) {
-        
-        
-        //let account = Account()
         let newTransaction = Transactions()
-        //let cat = Categories()
         
-        let incomeTextFieldToDouble = Double(incomeTextField.text!)
+        //MARK: transfery zapisuja sie tylko w pierwszej kategorii - popraw
+        let categoryResults = realm.objects(Categories.self)
+        let accountResults = realm.objects(Account.self)
         
-        if incomeTextField.text == "" || incomeTextFieldToDouble == 0 {
+        if let account = accountResults.first {
             
-            warningLabel.text = "Wprowadź kwotę"
-            warningLabel.isEnabled = true
-            
-        }
-        else {
-            
-            newTransaction.income = incomeTextFieldToDouble!
-            warningLabel.text = ""
-            warningLabel.isEnabled = false
-            
-            navigationController?.popViewController(animated: true)
-            
-        }
-        
-        newTransaction.dataTransaction = dateTextField.text!
-        newTransaction.note = descriptionTextField.text!
-        
-        //MARK: Popraw to?!
-        //        account.transactions.append(newTransaction)
-        //        cat.categories.append(newTransaction)
-        //
-        //                let creditCard = realm.objects(CreditCard.self).first // there's some code to get this.
-        //                try! realm.write {
-        //                    for purchase in purchases { // purchases = objects from a son
-        //                        let newPurchase = Purchase()
-        //                        newPurchase.id = purchase["Id"].intValue
-        //                        newPurchase.name = purchase["name"].stringValue
-        //                        newPurchase.date = purchase["date"].dateValue
-        //                        realm.add(newPurchase) // <-- save the purchase object to realm
-        //
-        //                        creditCard.purchases.append(newPurchase)
-        //                    }
-        //                }
-        
-        //        let parentAccount = realm.objects(Account.self).first!
-        //
-        //        try! realm.write {
-        //            for transaction in account.transactions {
-        //                let newTransaction = Transactions()
-        //                //newTransaction.dataTransaction = transaction[dateTextField.text!] as! String
-        //                newTransaction.income = transaction["income"] as! Double
-        //                newTransaction.id = transaction.incrementID()
-        //                //newTransaction.note = transaction[descriptionTextField.text!] as! String
-        //                //newTransaction.id = transaction.incrementID()
-        //
-        //                realm.add(newTransaction)
-        //                parentAccount.transactions.append(newTransaction)
-        //                //realm.add(account, update: true)
-        //                //realm.add(cat, update: true)
-        //
-        //            }
-        //
-        //        }
-        
-        
-        try! realm.write {
-            if newTransaction.income != 0 {
-                realm.add(newTransaction)
+            if let cat = categoryResults.first {
+                
+                let incomeTextFieldToDouble = Double(incomeTextField.text!)
+                newTransaction.income = incomeTextFieldToDouble ?? 0.0
+                
+                if incomeTextField.text == "" || incomeTextFieldToDouble == 0 {
+                    
+                    warningLabel.text = "Wprowadź kwotę"
+                    warningLabel.isEnabled = true
+                    
+                }
+                else {
+                    
+                    newTransaction.income = incomeTextFieldToDouble!
+                    warningLabel.text = ""
+                    warningLabel.isEnabled = false
+                    
+                    navigationController?.popViewController(animated: true)
+                    
+                }
+                
+                newTransaction.dataTransaction = dateTextField.text!
+                newTransaction.note = descriptionTextField.text!
+                
+                try! realm.write {
+                    account.transactions.append(newTransaction)
+                    cat.categories.append(newTransaction)
+                    
+                    print(newTransaction)
+                }
+                
             }
+            
         }
-        
-        
-        print(newTransaction)
     }
     
 }
