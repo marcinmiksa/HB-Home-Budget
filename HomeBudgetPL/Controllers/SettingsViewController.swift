@@ -46,15 +46,17 @@ class SettingsViewController: UIViewController {
         var textField = UITextField()
         
         let alert = UIAlertController(title: "Dodaj kategorię transakcji", message: "", preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "Dodaj kategorię", style: .default) { (action) in
+        let cancel = UIAlertAction(title: "Anuluj", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        let action = UIAlertAction(title: "Dodaj", style: .default) { (action) in
             
             try! self.realm.write {
                 let newCategory = Categories()
                 newCategory.categoryName = textField.text!
-                self.realm.add(newCategory)
+                if newCategory.categoryName != "" {
+                    self.realm.add(newCategory)
+                }
             }
-            
         }
         
         alert.addTextField { (alertTextField) in

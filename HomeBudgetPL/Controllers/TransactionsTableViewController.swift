@@ -14,6 +14,7 @@ class TransactionsTableViewController: UITableViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
+        // transactions = realm.objects(Transactions.self).filter("income != 0 OR expense !=0").sorted(byKeyPath: "dataTransaction", ascending: false)
         transactions = realm.objects(Transactions.self).sorted(byKeyPath: "dataTransaction", ascending: false)
         
         tableView.reloadData()

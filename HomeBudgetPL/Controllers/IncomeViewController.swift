@@ -112,15 +112,19 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 let incomeTextFieldToDouble = Double(incomeTextField.text!)
                 newTransaction.income = incomeTextFieldToDouble ?? 0.0
                 
-                if incomeTextField.text == "" || incomeTextFieldToDouble == 0 {
+                if incomeTextField.text == "" || incomeTextFieldToDouble == 0
+                    || categoryTextField.text == "" || dateTextField.text == "" {
                     
-                    warningLabel.text = "Wprowadź kwotę"
+                    warningLabel.text = "Wprowadź wszystkie dane"
                     warningLabel.isEnabled = true
                     
                 }
                 else {
                     
                     newTransaction.income = incomeTextFieldToDouble!
+                    newTransaction.dataTransaction = dateTextField.text!
+                    newTransaction.note = descriptionTextField.text!
+                    
                     warningLabel.text = ""
                     warningLabel.isEnabled = false
                     
@@ -128,14 +132,15 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                     
                 }
                 
-                newTransaction.dataTransaction = dateTextField.text!
-                newTransaction.note = descriptionTextField.text!
-                
                 try! realm.write {
-                    account.transactions.append(newTransaction)
-                    cat.categories.append(newTransaction)
+                    if newTransaction.income != 0 && newTransaction.dataTransaction != ""
+                        && cat.categoryName != "" {
+                        
+                        account.transactions.append(newTransaction)
+                        cat.categories.append(newTransaction)
+                        print(newTransaction)
+                    }
                     
-                    print(newTransaction)
                 }
                 
             }
