@@ -24,7 +24,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         incomeTextField.placeholder = "Kwota"
         dateTextField.placeholder = "Data"
         categoryTextField.placeholder = "Kategoria"
-        descriptionTextField.placeholder = "Opis"
+        descriptionTextField.placeholder = "Dodatkowy opis"
         
         warningLabel.isEnabled = false
         

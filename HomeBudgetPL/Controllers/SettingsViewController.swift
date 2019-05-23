@@ -24,7 +24,7 @@ class SettingsViewController: UIViewController {
         
     }
     
-    // przekazanie wartosci z drugiego kontrolera do pierwszego 
+    // przekazanie wartosci z drugiego kontrolera do pierwszego
     @IBAction func initBalanceButtonPressed(_ sender: Any) {
         
         delegate?.dataReceived(data: initBalanceTextField.text!)

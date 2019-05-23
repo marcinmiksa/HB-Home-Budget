@@ -40,13 +40,31 @@ class TransactionsTableViewController: UITableViewController {
         
         if let transaction = transactions?[indexPath.row] {
             
-            cell.textLabel?.text = "Data: \(transaction.dataTransaction)"
-            cell.detailTextLabel?.numberOfLines = 6;
-            cell.detailTextLabel?.text =
+            if transaction.income != 0.0 {
+                cell.textLabel?.text = "Data: \(transaction.dataTransaction)"
+                cell.detailTextLabel?.numberOfLines = 6;
                 
-                //MARK: popraw wyswietlanie kategorii - bez nawiasow
-            "Przychód: \(transaction.income) zł \nWydatek: \(transaction.expense) zł \nKategoria: \(transaction.parentCategories.value(forKey: "categoryName") ?? "") \nOpis: \(transaction.note)"
-            
+                cell.detailTextLabel?.text =
+                    
+                    //MARK: popraw wyswietlanie kategorii - bez nawiasow
+                "Przychód: \(transaction.income) zł \nKategoria: \(transaction.parentCategories.value(forKey: "categoryName") ?? "") \nOpis: \(transaction.note)"
+                
+                cell.textLabel?.textColor = UIColor(red: 0.1137, green: 0.8196, blue: 0.6314, alpha: 1.0)
+                cell.detailTextLabel?.textColor = UIColor(red: 0.1137, green: 0.8196, blue: 0.6314, alpha: 1.0)
+                
+            } else {
+                cell.textLabel?.text = "Data: \(transaction.dataTransaction)"
+                cell.detailTextLabel?.numberOfLines = 6;
+                
+                cell.detailTextLabel?.text =
+                    
+                    //MARK: popraw wyswietlanie kategorii - bez nawiasow
+                "Wydatek: \(transaction.expense) zł \nKategoria: \(transaction.parentCategories.value(forKey: "categoryName") ?? "") \nOpis: \(transaction.note)"
+                
+                cell.textLabel?.textColor = UIColor(red: 1, green: 0.4196, blue: 0.4196, alpha: 1.0)
+                cell.detailTextLabel?.textColor = UIColor(red: 1, green: 0.4196, blue: 0.4196, alpha: 1.0)
+                
+            }
             print(transaction.parentCategories)
         }
         
