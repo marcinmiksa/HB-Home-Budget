@@ -7,11 +7,11 @@ protocol CanReceiveIncome {
     
 }
 
-class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     
     let realm = try! Realm()
     
-    var delegate1 : CanReceiveIncome?
+    var delegateIncome : CanReceiveIncome?
     
     var data: Results<Categories>!
     var category: [Categories] = []
@@ -28,6 +28,8 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        self.incomeTextField.delegate = self
         
         incomeTextField.placeholder = "Kwota"
         dateTextField.placeholder = "Data"
@@ -111,6 +113,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     @IBAction func incomeButtonPressed(_ sender: Any) {
+        
         let newTransaction = Transactions()
         
         //MARK: transakcje zapisuja sie tylko w pierwszej kategorii - popraw
@@ -137,7 +140,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                     newTransaction.dataTransaction = dateTextField.text!
                     newTransaction.note = descriptionTextField.text!
                     
-                    delegate1?.dataReceivedIncome(dataIncome: incomeTextField.text!)
+                    delegateIncome?.dataReceivedIncome(dataIncome: incomeTextField.text!)
                     
                     warningLabel.text = ""
                     warningLabel.isEnabled = false
@@ -160,6 +163,35 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             }
             
         }
+    }
+    
+    //funkcja ogranicza wprowadzana wartosc do dziesietnej i tylko liczby
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let oldText = textField.text, let r = Range(range, in: oldText) else {
+            
+            return true
+            
+        }
+        
+        let newText = oldText.replacingCharacters(in: r, with: string)
+        let isNumeric = newText.isEmpty || (Double(newText) != nil)
+        let numberOfDots = newText.components(separatedBy: ".").count - 1
+        
+        let numberOfDecimalDigits: Int
+        
+        if let dotIndex = newText.firstIndex(of: ".") {
+            
+            numberOfDecimalDigits = newText.distance(from: dotIndex, to: newText.endIndex) - 1
+            
+        } else {
+            
+            numberOfDecimalDigits = 0
+            
+        }
+        
+        return isNumeric && numberOfDots <= 1 && numberOfDecimalDigits <= 2
+        
     }
     
 }

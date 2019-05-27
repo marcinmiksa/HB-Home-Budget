@@ -27,7 +27,7 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
             
             let secondVC = segue.destination as! SettingsViewController
             
-            secondVC.delegate = self
+            secondVC.delegateBalance = self
             
         }
         
@@ -35,7 +35,7 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
             
             let secondVC = segue.destination as! IncomeViewController
             
-            secondVC.delegate1 = self
+            secondVC.delegateIncome = self
             
         }
         
@@ -75,7 +75,8 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
         let balanceValue = realm.object(ofType: Account.self, forPrimaryKey: 0)
         
         print(balanceValue ?? 0.0)
-        self.balanceLabel.text = "\(totalIncomes + (balanceValue?.balance ?? 0.0))" 
+        
+        self.balanceLabel.text = String(format: "%.02f", totalIncomes + (balanceValue?.balance ?? 0.0))
         
     }
     

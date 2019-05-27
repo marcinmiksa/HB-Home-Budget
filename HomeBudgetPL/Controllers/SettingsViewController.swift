@@ -11,7 +11,7 @@ class SettingsViewController: UIViewController {
     
     let realm = try! Realm()
     
-    var delegate : CanReceiveBalance?
+    var delegateBalance : CanReceiveBalance?
     
     @IBOutlet weak var initBalanceButtonView: UIButton!
     
@@ -21,10 +21,9 @@ class SettingsViewController: UIViewController {
         
     }
     
-    // przekazanie wartosci z drugiego kontrolera do pierwszego
     @IBAction func initBalanceButtonPressed(_ sender: Any) {
         
-        var balancetextField = UITextField()
+        var balanceTextField = UITextField()
         
         let alert = UIAlertController(title: "Ustaw saldo początkowe", message: "Zmiana powoduje reset salda", preferredStyle: .alert)
         
@@ -33,24 +32,24 @@ class SettingsViewController: UIViewController {
         
         let cancel = UIAlertAction(title: "Anuluj", style: .cancel, handler: nil)
         alert.addAction(cancel)
+        
         let action = UIAlertAction(title: "Ustaw", style: .default) { (action) in
             
-            self.delegate?.dataReceivedBalance(dataBalance: balancetextField.text!)
+            // przekazanie wartosci z drugiego kontrolera do pierwszego
+            self.delegateBalance?.dataReceivedBalance(dataBalance: balanceTextField.text!)
             
         }
         
         alert.addTextField { (alertTextField) in
+            
             alertTextField.placeholder = "Wprowadź saldo"
-            balancetextField = alertTextField
+            balanceTextField = alertTextField
             
         }
         
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
-        
-        // przejscie do poprzedniego kontrolera
-        // navigationController?.popViewController(animated: true)
         
         // usuwamy wszystkieg transakcje po ustawieniu nowego salda
         let allTransactions = realm.objects(Transactions.self)
@@ -66,8 +65,10 @@ class SettingsViewController: UIViewController {
         var addCategorytextField = UITextField()
         
         let alert = UIAlertController(title: "Dodaj kategorię transakcji", message: "", preferredStyle: .alert)
+        
         let cancel = UIAlertAction(title: "Anuluj", style: .cancel, handler: nil)
         alert.addAction(cancel)
+        
         let action = UIAlertAction(title: "Dodaj", style: .default) { (action) in
             
             try! self.realm.write {
@@ -80,6 +81,7 @@ class SettingsViewController: UIViewController {
         }
         
         alert.addTextField { (alertTextField) in
+            
             alertTextField.placeholder = "Wprowadź kategorię"
             addCategorytextField = alertTextField
             
@@ -90,4 +92,5 @@ class SettingsViewController: UIViewController {
         present(alert, animated: true, completion: nil)
         
     }
+    
 }
