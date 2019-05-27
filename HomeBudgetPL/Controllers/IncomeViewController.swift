@@ -39,18 +39,22 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         data = realm.objects(Categories.self)
         category = Array(self.data)
         
-        // kalendarz
-        let dataPicker = UIDatePicker()
+        // kalendarza
+        let datePicker = UIDatePicker()
         
-        dataPicker.datePickerMode = .date
+        // ustawienie jezyka pl - kalendarz
+        let loc = Locale(identifier: "pl")
+        datePicker.locale = loc
         
-        dataPicker.addTarget(self, action: #selector(IncomeViewController.dataChanged(dataPicker:)), for: .valueChanged)
+        datePicker.datePickerMode = .date
+        
+        datePicker.addTarget(self, action: #selector(IncomeViewController.dataChanged(dataPicker:)), for: .valueChanged)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(IncomeViewController.viewTapped(gestureRecognizer:)))
         
         view.addGestureRecognizer(tapGesture)
         
-        dateTextField.inputView = dataPicker
+        dateTextField.inputView = datePicker
         
         // wybor kategorii
         categoryPicker.delegate = self
@@ -109,7 +113,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     @IBAction func incomeButtonPressed(_ sender: Any) {
         let newTransaction = Transactions()
         
-        //MARK: transfery zapisuja sie tylko w pierwszej kategorii - popraw
+        //MARK: transakcje zapisuja sie tylko w pierwszej kategorii - popraw
         let categoryResults = realm.objects(Categories.self)
         let accountResults = realm.objects(Account.self)
         
@@ -133,14 +137,14 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                     newTransaction.dataTransaction = dateTextField.text!
                     newTransaction.note = descriptionTextField.text!
                     
+                    delegate1?.dataReceivedIncome(dataIncome: incomeTextField.text!)
+                    
                     warningLabel.text = ""
                     warningLabel.isEnabled = false
                     
                     navigationController?.popViewController(animated: true)
                     
                 }
-                
-                delegate1?.dataReceivedIncome(dataIncome: incomeTextField.text!)
                 
                 try! realm.write {
                     if newTransaction.income != 0 && newTransaction.dataTransaction != ""

@@ -15,23 +15,42 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var initBalanceButtonView: UIButton!
     
-    @IBOutlet weak var initBalanceTextField: UITextField!
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        initBalanceTextField.placeholder = "Saldo początkowe"
         
     }
     
     // przekazanie wartosci z drugiego kontrolera do pierwszego
     @IBAction func initBalanceButtonPressed(_ sender: Any) {
         
-        delegate?.dataReceivedBalance(dataBalance: initBalanceTextField.text!)
+        var balancetextField = UITextField()
+        
+        let alert = UIAlertController(title: "Ustaw saldo początkowe", message: "Zmiana powoduje reset salda", preferredStyle: .alert)
+        
+        // zmiana koloru message w UIAlertController
+        alert.setValue(NSAttributedString(string: alert.message!, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.regular), NSAttributedString.Key.foregroundColor : UIColor.red]), forKey: "attributedMessage")
+        
+        let cancel = UIAlertAction(title: "Anuluj", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        let action = UIAlertAction(title: "Ustaw", style: .default) { (action) in
+            
+            self.delegate?.dataReceivedBalance(dataBalance: balancetextField.text!)
+            
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Wprowadź saldo"
+            balancetextField = alertTextField
+            
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
         
         // przejscie do poprzedniego kontrolera
-        navigationController?.popViewController(animated: true)
+        // navigationController?.popViewController(animated: true)
         
         // usuwamy wszystkieg transakcje po ustawieniu nowego salda
         let allTransactions = realm.objects(Transactions.self)
