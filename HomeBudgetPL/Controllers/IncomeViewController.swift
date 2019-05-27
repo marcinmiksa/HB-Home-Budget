@@ -1,9 +1,17 @@
 import UIKit
 import RealmSwift
 
+protocol CanReceiveIncome {
+    
+    func dataReceivedIncome(dataIncome: String)
+    
+}
+
 class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let realm = try! Realm()
+    
+    var delegate1 : CanReceiveIncome?
     
     var data: Results<Categories>!
     var category: [Categories] = []
@@ -131,6 +139,8 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                     navigationController?.popViewController(animated: true)
                     
                 }
+                
+                delegate1?.dataReceivedIncome(dataIncome: incomeTextField.text!)
                 
                 try! realm.write {
                     if newTransaction.income != 0 && newTransaction.dataTransaction != ""

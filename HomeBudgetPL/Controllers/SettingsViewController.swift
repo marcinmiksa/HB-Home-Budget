@@ -1,9 +1,9 @@
 import UIKit
 import RealmSwift
 
-protocol CanReceive {
+protocol CanReceiveBalance {
     
-    func dataReceived(data: String)
+    func dataReceivedBalance(dataBalance: String)
     
 }
 
@@ -11,9 +11,10 @@ class SettingsViewController: UIViewController {
     
     let realm = try! Realm()
     
-    var delegate : CanReceive?
+    var delegate : CanReceiveBalance?
     
     @IBOutlet weak var initBalanceButtonView: UIButton!
+    
     @IBOutlet weak var initBalanceTextField: UITextField!
     
     override func viewDidLoad() {
@@ -27,7 +28,7 @@ class SettingsViewController: UIViewController {
     // przekazanie wartosci z drugiego kontrolera do pierwszego
     @IBAction func initBalanceButtonPressed(_ sender: Any) {
         
-        delegate?.dataReceived(data: initBalanceTextField.text!)
+        delegate?.dataReceivedBalance(dataBalance: initBalanceTextField.text!)
         
         // przejscie do poprzedniego kontrolera
         navigationController?.popViewController(animated: true)
@@ -43,7 +44,7 @@ class SettingsViewController: UIViewController {
     
     @IBAction func addCategory(_ sender: Any) {
         
-        var textField = UITextField()
+        var addCategorytextField = UITextField()
         
         let alert = UIAlertController(title: "Dodaj kategorię transakcji", message: "", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Anuluj", style: .cancel, handler: nil)
@@ -52,7 +53,7 @@ class SettingsViewController: UIViewController {
             
             try! self.realm.write {
                 let newCategory = Categories()
-                newCategory.categoryName = textField.text!
+                newCategory.categoryName = addCategorytextField.text!
                 if newCategory.categoryName != "" {
                     self.realm.add(newCategory)
                 }
@@ -61,7 +62,7 @@ class SettingsViewController: UIViewController {
         
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Wprowadź kategorię"
-            textField = alertTextField
+            addCategorytextField = alertTextField
             
         }
         

@@ -326,7 +326,7 @@
                     <navigationItem key="navigationItem" title="Ustawienia" id="IYw-Wh-BuA"/>
                     <connections>
                         <outlet property="initBalanceButtonView" destination="ymW-PL-L6k" id="bmn-IM-niH"/>
-                        <outlet property="initBalanceTextField" destination="aod-Dt-ZZb" id="6EQ-bx-hDI"/>
+                        <outlet property="initBalanceTextField" destination="aod-Dt-ZZb" id="MB8-cX-lgM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nKx-Pp-SHd" userLabel="First Responder" sceneMemberID="firstResponder"/>

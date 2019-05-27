@@ -1,7 +1,7 @@
 import UIKit
 import RealmSwift
 
-class AccountViewController: UIViewController, CanReceive {
+class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveIncome {
     
     let realm = try! Realm()
     
@@ -14,20 +14,11 @@ class AccountViewController: UIViewController, CanReceive {
         // ustawienie "<" do przemieszczania sie miedzy controllerami
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-        // suma przychodow
-        let totalIncomes: Double = realm.objects(Transactions.self).sum(ofProperty: "income")
-        
-        print("Suma przychodow: \(totalIncomes)")
-        
-        let balanceValue = realm.object(ofType: Account.self, forPrimaryKey: 0)
-        
-        print(balanceValue ?? 0.0)
-        
-        // MARK: Brak dynamicznego sumowania - dopiero po restarcie aplikacji wskazuje poprawna wartosc
-        balanceLabel.text = "\(totalIncomes + (balanceValue?.balance ?? 0.0))"
+        showBalance()
         
         // odswieza widok
         view.setNeedsLayout()
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -40,18 +31,51 @@ class AccountViewController: UIViewController, CanReceive {
             
         }
         
+        if segue.identifier == "incomeSegue" {
+            
+            let secondVC = segue.destination as! IncomeViewController
+            
+            secondVC.delegate1 = self
+            
+        }
+        
     }
     
-    func dataReceived(data: String) {
+    func dataReceivedBalance(dataBalance: String) {
         
         let account = Account()
         
-        balanceLabel.text = data
-        account.balance = Double(data)!
+        balanceLabel.text = dataBalance
+        account.balance = Double(dataBalance)!
         
         try! realm.write() {
             realm.add(account, update: true)
         }
+        
+    }
+    
+    func dataReceivedIncome(dataIncome: String) {
+        
+        var tmp = 0.0
+        tmp = Double(balanceLabel.text!)!
+        
+        let sumTransactions: Double = tmp + Double(dataIncome)!
+        balanceLabel.text = "\(sumTransactions)"
+        
+        print(balanceLabel.text as Any)
+        
+    }
+    
+    func showBalance() {
+        
+        let totalIncomes: Double = realm.objects(Transactions.self).sum(ofProperty: "income")
+        
+        print("Suma przychodow: \(totalIncomes)")
+        
+        let balanceValue = realm.object(ofType: Account.self, forPrimaryKey: 0)
+        
+        print(balanceValue ?? 0.0)
+        self.balanceLabel.text = "\(totalIncomes + (balanceValue?.balance ?? 0.0))" 
         
     }
     
