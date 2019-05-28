@@ -1,7 +1,7 @@
 import UIKit
 import RealmSwift
 
-class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveIncome {
+class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveIncome, CanReceiveExpense {
     
     let realm = try! Realm()
     
@@ -15,9 +15,6 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         showBalance()
-        
-        // odswieza widok
-        view.setNeedsLayout()
         
     }
     
@@ -36,6 +33,14 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
             let secondVC = segue.destination as! IncomeViewController
             
             secondVC.delegateIncome = self
+            
+        }
+        
+        if segue.identifier == "expenseSegue" {
+            
+            let secondVC = segue.destination as! ExpenseViewController
+            
+            secondVC.delegateExpense = self
             
         }
         
@@ -59,8 +64,20 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
         var tmp = 0.0
         tmp = Double(balanceLabel.text!)!
         
-        let sumTransactions: Double = tmp + Double(dataIncome)!
-        balanceLabel.text = "\(sumTransactions)"
+        let addTransations: Double = tmp + Double(dataIncome)!
+        balanceLabel.text = "\(addTransations)"
+        
+        print(balanceLabel.text as Any)
+        
+    }
+    
+    func dataReceivedExpense(dataExpense: String) {
+        
+        var tmp = 0.0
+        tmp = Double(balanceLabel.text!)!
+        
+        let oddsTransactions: Double = tmp - Double(dataExpense)!
+        balanceLabel.text = "\(oddsTransactions)"
         
         print(balanceLabel.text as Any)
         
@@ -69,14 +86,16 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
     func showBalance() {
         
         let totalIncomes: Double = realm.objects(Transactions.self).sum(ofProperty: "income")
-        
         print("Suma przychodow: \(totalIncomes)")
+        
+        let totalExpenses: Double = realm.objects(Transactions.self).sum(ofProperty: "expense")
+        print("Suma wydatkow: \(totalExpenses)")
         
         let balanceValue = realm.object(ofType: Account.self, forPrimaryKey: 0)
         
         print(balanceValue ?? 0.0)
         
-        self.balanceLabel.text = String(format: "%.02f", totalIncomes + (balanceValue?.balance ?? 0.0))
+        self.balanceLabel.text = String(format: "%.02f", (balanceValue?.balance ?? 0.0) + totalIncomes - totalExpenses)
         
     }
     

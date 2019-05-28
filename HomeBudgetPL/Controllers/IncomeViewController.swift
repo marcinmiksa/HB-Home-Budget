@@ -41,7 +41,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         data = realm.objects(Categories.self)
         category = Array(self.data)
         
-        // kalendarza
+        // kalendarz
         let datePicker = UIDatePicker()
         
         // ustawienie jezyka pl - kalendarz
@@ -64,8 +64,6 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         categoryPicker.dataSource = self
         
         categoryTextField.inputView = categoryPicker
-        
-        view.setNeedsLayout()
         
     }
     
