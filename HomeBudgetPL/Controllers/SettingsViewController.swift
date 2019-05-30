@@ -38,6 +38,13 @@ class SettingsViewController: UIViewController {
             // przekazanie wartosci z drugiego kontrolera do pierwszego
             self.delegateBalance?.dataReceivedBalance(dataBalance: balanceTextField.text!)
             
+            // usuwamy wszystkieg transakcje po ustawieniu nowego salda
+            let allTransactions = self.realm.objects(Transactions.self)
+            
+            try! self.realm.write {
+                self.realm.delete(allTransactions)
+            }
+            
         }
         
         alert.addTextField { (alertTextField) in
@@ -50,13 +57,6 @@ class SettingsViewController: UIViewController {
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
-        
-        // usuwamy wszystkieg transakcje po ustawieniu nowego salda
-        let allTransactions = realm.objects(Transactions.self)
-        
-        try! realm.write {
-            realm.delete(allTransactions)
-        }
         
     }
     
@@ -78,6 +78,7 @@ class SettingsViewController: UIViewController {
                     self.realm.add(newCategory)
                 }
             }
+            
         }
         
         alert.addTextField { (alertTextField) in

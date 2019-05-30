@@ -114,52 +114,51 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         
         let newTransaction = Transactions()
         
-        //MARK: transakcje zapisuja sie tylko w pierwszej kategorii - popraw
         let categoryResults = realm.objects(Categories.self)
         let accountResults = realm.objects(Account.self)
         
         if let account = accountResults.first {
             
-            if let cat = categoryResults.first {
+            for categoryResult in categoryResults {
                 
-                let expenseTextFieldToDouble = Double(expenseTextField.text!)
-                newTransaction.expense = expenseTextFieldToDouble ?? 0.0
-                
-                if expenseTextField.text == "" || expenseTextFieldToDouble == 0
-                    || categoryTextField.text == "" || dateTextField.text == "" {
+                if categoryResult.categoryName == categoryTextField.text! {
                     
-                    warningLabel.text = "Wprowadź wszystkie dane"
-                    warningLabel.isEnabled = true
+                    let expenseTextFieldToDouble = Double(expenseTextField.text!)
+                    newTransaction.expense = expenseTextFieldToDouble ?? 0.0
                     
-                }
-                else {
-                    
-                    newTransaction.expense = expenseTextFieldToDouble!
-                    newTransaction.dataTransaction = dateTextField.text!
-                    newTransaction.note = descriptionTextField.text!
-                    
-                    delegateExpense?.dataReceivedExpense(dataExpense: expenseTextField.text!)
-                    
-                    warningLabel.text = ""
-                    warningLabel.isEnabled = false
-                    
-                    navigationController?.popViewController(animated: true)
-                    
-                }
-                
-                try! realm.write {
-                    if newTransaction.expense != 0 && newTransaction.dataTransaction != ""
-                        && cat.categoryName != "" {
+                    if expenseTextField.text == "" || expenseTextFieldToDouble == 0
+                        || categoryTextField.text == "" || dateTextField.text == "" {
                         
-                        account.transactions.append(newTransaction)
-                        cat.categories.append(newTransaction)
-                        print(newTransaction)
+                        warningLabel.text = "Wprowadź wszystkie dane"
+                        warningLabel.isEnabled = true
+                        
+                    }
+                    else {
+                        
+                        newTransaction.expense = expenseTextFieldToDouble!
+                        newTransaction.dataTransaction = dateTextField.text!
+                        newTransaction.note = descriptionTextField.text!
+                        
+                        delegateExpense?.dataReceivedExpense(dataExpense: expenseTextField.text!)
+                        
+                        warningLabel.text = ""
+                        warningLabel.isEnabled = false
+                        
+                        navigationController?.popViewController(animated: true)
+                        
+                    }
+                    
+                    try! realm.write {
+                        if newTransaction.expense != 0 && newTransaction.dataTransaction != ""
+                            && categoryResult.categoryName != "" {
+                            account.transactions.append(newTransaction)
+                            categoryResult.categories.append(newTransaction)
+                        }
                     }
                     
                 }
                 
             }
-            
         }
     }
     

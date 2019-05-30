@@ -9,8 +9,8 @@ class ReportViewController: UIViewController {
         
         super.viewDidLoad()
         
-        var entries: [PieChartDataEntry] = []
-        entries.append(PieChartDataEntry(value: 50, label: "lol"))
+//        var entries: [PieChartDataEntry] = []
+//        entries.append(PieChartDataEntry(value: 50, label: "lol"))
         
     }
     

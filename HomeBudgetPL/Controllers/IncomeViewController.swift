@@ -18,6 +18,8 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     var categoryPicker = UIPickerView()
     
+    var tmp = ""
+    
     @IBOutlet weak var saveIncomePressed: UIBarButtonItem!
     @IBOutlet weak var warningLabel: UILabel!
     @IBOutlet weak var incomeTextField: UITextField!
@@ -106,6 +108,9 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         categoryTextField.text = category[row].categoryName
+        
+        tmp = category[row].categoryName
+        
         self.view.endEditing(false)
         
     }
@@ -114,46 +119,46 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         let newTransaction = Transactions()
         
-        //MARK: transakcje zapisuja sie tylko w pierwszej kategorii - popraw
         let categoryResults = realm.objects(Categories.self)
         let accountResults = realm.objects(Account.self)
         
         if let account = accountResults.first {
             
-            if let cat = categoryResults.first {
+            for categoryResult in categoryResults {
                 
-                let incomeTextFieldToDouble = Double(incomeTextField.text!)
-                newTransaction.income = incomeTextFieldToDouble ?? 0.0
-                
-                if incomeTextField.text == "" || incomeTextFieldToDouble == 0
-                    || categoryTextField.text == "" || dateTextField.text == "" {
+                if categoryResult.categoryName == categoryTextField.text! {
                     
-                    warningLabel.text = "Wprowadź wszystkie dane"
-                    warningLabel.isEnabled = true
+                    let incomeTextFieldToDouble = Double(incomeTextField.text!)
+                    newTransaction.income = incomeTextFieldToDouble ?? 0.0
                     
-                }
-                else {
-                    
-                    newTransaction.income = incomeTextFieldToDouble!
-                    newTransaction.dataTransaction = dateTextField.text!
-                    newTransaction.note = descriptionTextField.text!
-                    
-                    delegateIncome?.dataReceivedIncome(dataIncome: incomeTextField.text!)
-                    
-                    warningLabel.text = ""
-                    warningLabel.isEnabled = false
-                    
-                    navigationController?.popViewController(animated: true)
-                    
-                }
-                
-                try! realm.write {
-                    if newTransaction.income != 0 && newTransaction.dataTransaction != ""
-                        && cat.categoryName != "" {
+                    if incomeTextField.text == "" || incomeTextFieldToDouble == 0
+                        || categoryTextField.text == "" || dateTextField.text == "" {
                         
-                        account.transactions.append(newTransaction)
-                        cat.categories.append(newTransaction)
-                        print(newTransaction)
+                        warningLabel.text = "Wprowadź wszystkie dane"
+                        warningLabel.isEnabled = true
+                        
+                    }
+                    else {
+                        
+                        newTransaction.income = incomeTextFieldToDouble!
+                        newTransaction.dataTransaction = dateTextField.text!
+                        newTransaction.note = descriptionTextField.text!
+                        
+                        delegateIncome?.dataReceivedIncome(dataIncome: incomeTextField.text!)
+                        
+                        warningLabel.text = ""
+                        warningLabel.isEnabled = false
+                        
+                        navigationController?.popViewController(animated: true)
+                        
+                    }
+                    
+                    try! realm.write {
+                        if newTransaction.income != 0 && newTransaction.dataTransaction != ""
+                            && categoryResult.categoryName != "" {
+                            account.transactions.append(newTransaction)
+                            categoryResult.categories.append(newTransaction)
+                        }
                     }
                     
                 }
@@ -161,6 +166,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             }
             
         }
+        
     }
     
     //funkcja ogranicza wprowadzana wartosc do dziesietnej i tylko liczby

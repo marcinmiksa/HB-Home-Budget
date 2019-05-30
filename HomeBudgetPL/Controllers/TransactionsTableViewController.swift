@@ -19,7 +19,7 @@ class TransactionsTableViewController: UITableViewController {
         
         tableView.reloadData()
         
-        print(transactions ?? 0)
+        // print(transactions ?? 0)
         
     }
     
@@ -49,6 +49,8 @@ class TransactionsTableViewController: UITableViewController {
                     // MARK: popraw wyswietlanie kategorii - bez nawiasow
                 "Przychód: \(transaction.income) zł \nKategoria: \(transaction.parentCategories.value(forKey: "categoryName") ?? "") \nOpis: \(transaction.note)"
                 
+                // print(transaction.parentCategories.value(forKey: "categoryName") as Any)
+                
                 // kolor zielony
                 cell.textLabel?.textColor = UIColor(red: 0.1137, green: 0.8196, blue: 0.6314, alpha: 1.0)
                 cell.detailTextLabel?.textColor = UIColor(red: 0.1137, green: 0.8196, blue: 0.6314, alpha: 1.0)
@@ -66,7 +68,7 @@ class TransactionsTableViewController: UITableViewController {
                 cell.detailTextLabel?.textColor = UIColor(red: 1, green: 0.4196, blue: 0.4196, alpha: 1.0)
                 
             }
-            print(transaction.parentCategories)
+            // print(transaction.parentCategories)
         }
         
         return cell

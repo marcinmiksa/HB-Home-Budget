@@ -109,10 +109,10 @@
 				D3A804DA227206E100A9F6A8 /* AppDelegate.swift */,
 				D3A804DC227206E100A9F6A8 /* AccountViewController.swift */,
 				D3C1988F2274C9C7007E72BA /* IncomeViewController.swift */,
-				D3C35D71227ECE4F0086B876 /* SettingsViewController.swift */,
-				D3A24608228B58120065FF6D /* ReportViewController.swift */,
-				D3A2460C228B5A580065FF6D /* TransactionsTableViewController.swift */,
 				D33FB6DC228C9A51004ECBD9 /* ExpenseViewController.swift */,
+				D3A2460C228B5A580065FF6D /* TransactionsTableViewController.swift */,
+				D3A24608228B58120065FF6D /* ReportViewController.swift */,
+				D3C35D71227ECE4F0086B876 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
