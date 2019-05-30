@@ -18,8 +18,6 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     var categoryPicker = UIPickerView()
     
-    var tmp = ""
-    
     @IBOutlet weak var saveIncomePressed: UIBarButtonItem!
     @IBOutlet weak var warningLabel: UILabel!
     @IBOutlet weak var incomeTextField: UITextField!
@@ -108,8 +106,6 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         categoryTextField.text = category[row].categoryName
-        
-        tmp = category[row].categoryName
         
         self.view.endEditing(false)
         
