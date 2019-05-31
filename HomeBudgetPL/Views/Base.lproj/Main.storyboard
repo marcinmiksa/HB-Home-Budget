@@ -283,7 +283,7 @@
                                         <rect key="frame" x="0.0" y="48" width="414" height="42.5"/>
                                         <state key="normal" image="add-button"/>
                                         <connections>
-                                            <action selector="addCategory:" destination="1q7-ZL-ODo" eventType="touchUpInside" id="YdA-w6-lVo"/>
+                                            <action selector="addCategoryButtonPressed:" destination="1q7-ZL-ODo" eventType="touchUpInside" id="YdA-w6-lVo"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ustawienia początkowe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GNI-eq-c43" userLabel="initialBalanceText">

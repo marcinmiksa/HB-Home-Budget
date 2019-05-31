@@ -11,6 +11,10 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     let realm = try! Realm()
     
+    var initbalanceTextField = UITextField()
+    
+    var addCategorytextField = UITextField()
+    
     var delegateBalance : CanReceiveBalance?
     
     @IBOutlet weak var initBalanceButtonView: UIButton!
@@ -23,8 +27,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func initBalanceButtonPressed(_ sender: Any) {
         
-        var initbalanceTextField = UITextField()
-        
         let alert = UIAlertController(title: "Ustaw saldo początkowe", message: "Zmiana powoduje reset salda oraz usuwa wszystkie kategorie!", preferredStyle: .alert)
         
         // zmiana koloru komunikatu w UIAlertController
@@ -35,34 +37,16 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
         let action = UIAlertAction(title: "Ustaw", style: .default) { (action) in
             
-            if initbalanceTextField.text != "" {
-                
-                // przekazanie wartosci z drugiego kontrolera do pierwszego
-                self.delegateBalance?.dataReceivedBalance(dataBalance: initbalanceTextField.text!)
-                
-            } else {
-                
-                print("nie zero")
-                
-            }
-            
-            let allTransactions = self.realm.objects(Transactions.self)
-            let allCategories = self.realm.objects(Categories.self)
-            
-            try! self.realm.write {
-                // usuwamy wszystkieg transakcje po ustawieniu nowego salda
-                self.realm.delete(allTransactions)
-                self.realm.delete(allCategories)
-            }
+            self.saveInitBalance()
             
         }
         
         alert.addTextField { (alertTextField) in
             
             alertTextField.placeholder = "Wprowadź saldo"
-            initbalanceTextField = alertTextField
+            self.initbalanceTextField = alertTextField
             
-            initbalanceTextField.delegate = self
+            self.initbalanceTextField.delegate = self
             
         }
         
@@ -72,9 +56,27 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    @IBAction func addCategory(_ sender: Any) {
+    func saveInitBalance() {
         
-        var addCategorytextField = UITextField()
+        if initbalanceTextField.text != "" {
+            
+            // przekazanie wartosci z drugiego kontrolera do pierwszego
+            self.delegateBalance?.dataReceivedBalance(dataBalance: initbalanceTextField.text!)
+            
+        }
+        
+        let allTransactions = self.realm.objects(Transactions.self)
+        let allCategories = self.realm.objects(Categories.self)
+        
+        try! self.realm.write {
+            // usuwamy wszystkieg transakcje oraz kategorie po ustawieniu nowego salda
+            self.realm.delete(allTransactions)
+            self.realm.delete(allCategories)
+        }
+        
+    }
+    
+    @IBAction func addCategoryButtonPressed(_ sender: Any) {
         
         let alert = UIAlertController(title: "Dodaj kategorię transakcji", message: "", preferredStyle: .alert)
         
@@ -83,31 +85,36 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
         let action = UIAlertAction(title: "Dodaj", style: .default) { (action) in
             
-            let categoryArray = Array(self.realm.objects(Categories.self).value(forKey: "categoryName") as! [String])
-            
-            // sprawdza czy wpisana kategoria w addCategorytextField jest w naszej tablicy kategorii
-            let existCategory = categoryArray.contains(addCategorytextField.text!)
-            
-            try! self.realm.write {
-                let newCategory = Categories()
-                newCategory.categoryName = addCategorytextField.text!
-                if newCategory.categoryName != "" && existCategory == false {
-                    self.realm.add(newCategory)
-                }
-            }
+            self.saveCategory()
             
         }
         
         alert.addTextField { (alertTextField) in
             
             alertTextField.placeholder = "Wprowadź kategorię"
-            addCategorytextField = alertTextField
+            self.addCategorytextField = alertTextField
             
         }
         
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func saveCategory() {
+        
+        let categoryArray = Array(self.realm.objects(Categories.self).value(forKey: "categoryName") as! [String])
+        // sprawdza czy wpisana kategoria w addCategorytextField jest w naszej tablicy kategorii
+        let existCategory = categoryArray.contains(self.addCategorytextField.text!)
+        
+        try! self.realm.write {
+            let newCategory = Categories()
+            newCategory.categoryName = addCategorytextField.text!
+            if newCategory.categoryName != "" && existCategory == false {
+                self.realm.add(newCategory)
+            }
+        }
         
     }
     

@@ -16,6 +16,8 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     var data: Results<Categories>!
     var category: [Categories] = []
     
+    let newTransaction = Transactions()
+    
     var categoryPicker = UIPickerView()
     
     @IBOutlet weak var saveIncomePressed: UIBarButtonItem!
@@ -113,13 +115,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     @IBAction func incomeButtonPressed(_ sender: Any) {
         
-        let newTransaction = Transactions()
-        
-        let categoryResults = realm.objects(Categories.self)
-        let accountResults = realm.objects(Account.self)
-        let incomeTextFieldToDouble = Double(incomeTextField.text!)
-        
-        if incomeTextField.text == "" || incomeTextFieldToDouble == 0
+        if incomeTextField.text == "" || Double(incomeTextField.text!) == 0
             || categoryTextField.text == "" || dateTextField.text == "" {
             
             warningLabel.text = "Wprowadź wszystkie dane"
@@ -129,38 +125,47 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             
         else {
             
-            newTransaction.income = incomeTextFieldToDouble!
+            newTransaction.income = Double(incomeTextField.text!)!
             newTransaction.dataTransaction = dateTextField.text!
             newTransaction.note = descriptionTextField.text!
             
             warningLabel.text = ""
             warningLabel.isEnabled = false
             
-            if let account = accountResults.first {
+            saveIncome()
+            
+            delegateIncome?.dataReceivedIncome(dataIncome: incomeTextField.text!)
+            
+            navigationController?.popViewController(animated: true)
+            
+        }
+        
+    }
+    
+    func saveIncome() {
+        
+        let categoryResults = realm.objects(Categories.self)
+        let accountResults = realm.objects(Account.self)
+        
+        if let account = accountResults.first {
+            
+            for categoryResult in categoryResults {
                 
-                for categoryResult in categoryResults {
+                if categoryResult.categoryName == categoryTextField.text! {
                     
-                    if categoryResult.categoryName == categoryTextField.text! {
-                        
-                        newTransaction.income = incomeTextFieldToDouble ?? 0.0
-                        
-                        try! realm.write {
-                            if newTransaction.income != 0 && newTransaction.dataTransaction != ""
-                                && categoryResult.categoryName != "" {
-                                account.transactions.append(newTransaction)
-                                categoryResult.categories.append(newTransaction)
-                            }
+                    newTransaction.income = Double(incomeTextField.text!) ?? 0.0
+                    
+                    try! realm.write {
+                        if newTransaction.income != 0 && newTransaction.dataTransaction != ""
+                            && categoryResult.categoryName != "" {
+                            account.transactions.append(newTransaction)
+                            categoryResult.categories.append(newTransaction)
                         }
-                        
                     }
                     
                 }
                 
             }
-            
-            delegateIncome?.dataReceivedIncome(dataIncome: incomeTextField.text!)
-            
-            navigationController?.popViewController(animated: true)
             
         }
         

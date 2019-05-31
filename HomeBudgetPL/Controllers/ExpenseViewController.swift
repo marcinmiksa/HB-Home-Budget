@@ -16,6 +16,8 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     var data: Results<Categories>!
     var category: [Categories] = []
     
+    let newTransaction = Transactions()
+    
     var categoryPicker = UIPickerView()
     
     @IBOutlet weak var saveExpensePressed: UIBarButtonItem!
@@ -113,13 +115,7 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     @IBAction func expenseButtonPressed(_ sender: Any) {
         
-        let newTransaction = Transactions()
-        
-        let categoryResults = realm.objects(Categories.self)
-        let accountResults = realm.objects(Account.self)
-        let expenseTextFieldToDouble = Double(expenseTextField.text!)
-        
-        if expenseTextField.text == "" || expenseTextFieldToDouble == 0
+        if expenseTextField.text == "" || Double(expenseTextField.text!) == 0
             || categoryTextField.text == "" || dateTextField.text == "" {
             
             warningLabel.text = "Wprowadź wszystkie dane"
@@ -129,38 +125,47 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             
         else {
             
-            newTransaction.expense = expenseTextFieldToDouble!
+            newTransaction.expense = Double(expenseTextField.text!)!
             newTransaction.dataTransaction = dateTextField.text!
             newTransaction.note = descriptionTextField.text!
             
             warningLabel.text = ""
             warningLabel.isEnabled = false
             
-            if let account = accountResults.first {
+            saveExpense()
+            
+            delegateExpense?.dataReceivedExpense(dataExpense: expenseTextField.text!)
+            
+            navigationController?.popViewController(animated: true)
+            
+        }
+        
+    }
+    
+    func saveExpense() {
+        
+        let categoryResults = realm.objects(Categories.self)
+        let accountResults = realm.objects(Account.self)
+        
+        if let account = accountResults.first {
+            
+            for categoryResult in categoryResults {
                 
-                for categoryResult in categoryResults {
+                if categoryResult.categoryName == categoryTextField.text! {
                     
-                    if categoryResult.categoryName == categoryTextField.text! {
-                        
-                        newTransaction.expense = expenseTextFieldToDouble ?? 0.0
-                        
-                        try! realm.write {
-                            if newTransaction.expense != 0 && newTransaction.dataTransaction != ""
-                                && categoryResult.categoryName != "" {
-                                account.transactions.append(newTransaction)
-                                categoryResult.categories.append(newTransaction)
-                            }
+                    newTransaction.expense = Double(expenseTextField.text!) ?? 0.0
+                    
+                    try! realm.write {
+                        if newTransaction.expense != 0 && newTransaction.dataTransaction != ""
+                            && categoryResult.categoryName != "" {
+                            account.transactions.append(newTransaction)
+                            categoryResult.categories.append(newTransaction)
                         }
-                        
                     }
                     
                 }
                 
             }
-            
-            delegateExpense?.dataReceivedExpense(dataExpense: expenseTextField.text!)
-            
-            navigationController?.popViewController(animated: true)
             
         }
         
