@@ -54,7 +54,7 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
         account.balance = Double(dataBalance)!
         
         try! realm.write() {
-            realm.add(account, update: true)
+            realm.add(account, update: .modified)
         }
         
     }
@@ -67,8 +67,6 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
         let addTransations: Double = tmp + Double(dataIncome)!
         balanceLabel.text = "\(addTransations)"
         
-        // print(balanceLabel.text as Any)
-        
     }
     
     func dataReceivedExpense(dataExpense: String) {
@@ -79,23 +77,17 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
         let oddsTransactions: Double = tmp - Double(dataExpense)!
         balanceLabel.text = "\(oddsTransactions)"
         
-        // print(balanceLabel.text as Any)
-        
     }
     
     func showBalance() {
         
         let totalIncomes: Double = realm.objects(Transactions.self).sum(ofProperty: "income")
-        // print("Suma przychodow: \(totalIncomes)")
-        
         let totalExpenses: Double = realm.objects(Transactions.self).sum(ofProperty: "expense")
-        //nprint("Suma wydatkow: \(totalExpenses)")
+        let accountObject = realm.object(ofType: Account.self, forPrimaryKey: 0)
         
-        let balanceValue = realm.object(ofType: Account.self, forPrimaryKey: 0)
+        // print(accountObject ?? 0.0)
         
-        // print(balanceValue ?? 0.0)
-        
-        self.balanceLabel.text = String(format: "%.02f", (balanceValue?.balance ?? 0.0) + totalIncomes - totalExpenses)
+        self.balanceLabel.text = String(format: "%.02f", (accountObject?.balance ?? 0.0) + totalIncomes - totalExpenses)
         
     }
     
