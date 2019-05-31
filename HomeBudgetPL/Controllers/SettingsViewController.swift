@@ -25,7 +25,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
         var initbalanceTextField = UITextField()
         
-        let alert = UIAlertController(title: "Ustaw saldo początkowe", message: "Zmiana powoduje reset salda", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Ustaw saldo początkowe", message: "Zmiana powoduje reset salda oraz usuwa wszystkie kategorie!", preferredStyle: .alert)
         
         // zmiana koloru komunikatu w UIAlertController
         alert.setValue(NSAttributedString(string: alert.message!, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.regular), NSAttributedString.Key.foregroundColor : UIColor.red]), forKey: "attributedMessage")
@@ -47,10 +47,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             }
             
             let allTransactions = self.realm.objects(Transactions.self)
+            let allCategories = self.realm.objects(Categories.self)
             
             try! self.realm.write {
                 // usuwamy wszystkieg transakcje po ustawieniu nowego salda
                 self.realm.delete(allTransactions)
+                self.realm.delete(allCategories)
             }
             
         }

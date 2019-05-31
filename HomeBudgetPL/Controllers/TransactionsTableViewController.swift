@@ -14,12 +14,11 @@ class TransactionsTableViewController: UITableViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
-        // transactions = realm.objects(Transactions.self).filter("income != 0 OR expense !=0").sorted(byKeyPath: "dataTransaction", ascending: false)
         transactions = realm.objects(Transactions.self).sorted(byKeyPath: "dataTransaction", ascending: false)
         
         tableView.reloadData()
         
-        // print(transactions ?? 0)
+        print(transactions ?? 0)
         
     }
     
@@ -40,16 +39,15 @@ class TransactionsTableViewController: UITableViewController {
         
         if let transaction = transactions?[indexPath.row] {
             
+            let categoryNameObject = transaction.parentCategories.value(forKey: "categoryName") as? NSArray
+            
             if transaction.income != 0.0 {
                 cell.textLabel?.text = "Data: \(transaction.dataTransaction)"
                 cell.detailTextLabel?.numberOfLines = 6;
                 
                 cell.detailTextLabel?.text =
                     
-                    // MARK: popraw wyswietlanie kategorii - bez nawiasow
-                "Przychód: \(transaction.income) zł \nKategoria: \(transaction.parentCategories.value(forKey: "categoryName") ?? "") \nOpis: \(transaction.note)"
-                
-                // print(transaction.parentCategories.value(forKey: "categoryName") as Any)
+                "Przychód: \(transaction.income) zł \nKategoria: \(categoryNameObject?.firstObject ?? "") \nOpis: \(transaction.note)"
                 
                 // kolor zielony
                 cell.textLabel?.textColor = UIColor(red: 0.1137, green: 0.8196, blue: 0.6314, alpha: 1.0)
@@ -57,18 +55,18 @@ class TransactionsTableViewController: UITableViewController {
                 
             } else {
                 cell.textLabel?.text = "Data: \(transaction.dataTransaction)"
-                cell.detailTextLabel?.numberOfLines = 6;
+                cell.detailTextLabel?.numberOfLines = 3;
                 
                 cell.detailTextLabel?.text =
                     
-                "Wydatek: \(transaction.expense) zł \nKategoria: \(transaction.parentCategories.value(forKey: "categoryName") ?? "") \nOpis: \(transaction.note)"
+                "Wydatek: \(transaction.expense) zł \nKategoria: \(categoryNameObject?.firstObject ?? "") \nOpis: \(transaction.note)"
                 
                 // kolor czerwony
                 cell.textLabel?.textColor = UIColor(red: 1, green: 0.4196, blue: 0.4196, alpha: 1.0)
                 cell.detailTextLabel?.textColor = UIColor(red: 1, green: 0.4196, blue: 0.4196, alpha: 1.0)
                 
             }
-            // print(transaction.parentCategories)
+            
         }
         
         return cell

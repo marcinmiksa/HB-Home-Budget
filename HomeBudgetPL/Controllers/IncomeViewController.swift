@@ -105,6 +105,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        // MARK: obsluz wyjatek - probujemy zapisac transakcje, gdy nie mamy kategorii
         categoryTextField.text = category[row].categoryName
         
         self.view.endEditing(false)

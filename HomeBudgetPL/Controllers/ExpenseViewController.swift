@@ -106,6 +106,7 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         categoryTextField.text = category[row].categoryName
+        
         self.view.endEditing(false)
         
     }
