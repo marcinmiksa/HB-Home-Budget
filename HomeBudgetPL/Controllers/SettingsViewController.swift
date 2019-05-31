@@ -83,10 +83,15 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
         let action = UIAlertAction(title: "Dodaj", style: .default) { (action) in
             
+            let categoryArray = Array(self.realm.objects(Categories.self).value(forKey: "categoryName") as! [String])
+            
+            // sprawdza czy wpisana kategoria w addCategorytextField jest w naszej tablicy kategorii
+            let existCategory = categoryArray.contains(addCategorytextField.text!)
+            
             try! self.realm.write {
                 let newCategory = Categories()
                 newCategory.categoryName = addCategorytextField.text!
-                if newCategory.categoryName != "" {
+                if newCategory.categoryName != "" && existCategory == false {
                     self.realm.add(newCategory)
                 }
             }

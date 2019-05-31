@@ -105,7 +105,7 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        categoryTextField.text = category[row].categoryName
+        categoryTextField.text? = category[row].categoryName
         
         self.view.endEditing(false)
         
@@ -117,50 +117,53 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         
         let categoryResults = realm.objects(Categories.self)
         let accountResults = realm.objects(Account.self)
+        let expenseTextFieldToDouble = Double(expenseTextField.text!)
         
-        if let account = accountResults.first {
+        if expenseTextField.text == "" || expenseTextFieldToDouble == 0
+            || categoryTextField.text == "" || dateTextField.text == "" {
             
-            for categoryResult in categoryResults {
+            warningLabel.text = "Wprowadź wszystkie dane"
+            warningLabel.isEnabled = true
+            
+        }
+            
+        else {
+            
+            newTransaction.expense = expenseTextFieldToDouble!
+            newTransaction.dataTransaction = dateTextField.text!
+            newTransaction.note = descriptionTextField.text!
+            
+            warningLabel.text = ""
+            warningLabel.isEnabled = false
+            
+            if let account = accountResults.first {
                 
-                if categoryResult.categoryName == categoryTextField.text! {
+                for categoryResult in categoryResults {
                     
-                    let expenseTextFieldToDouble = Double(expenseTextField.text!)
-                    newTransaction.expense = expenseTextFieldToDouble ?? 0.0
-                    
-                    if expenseTextField.text == "" || expenseTextFieldToDouble == 0
-                        || categoryTextField.text == "" || dateTextField.text == "" {
+                    if categoryResult.categoryName == categoryTextField.text! {
                         
-                        warningLabel.text = "Wprowadź wszystkie dane"
-                        warningLabel.isEnabled = true
+                        newTransaction.expense = expenseTextFieldToDouble ?? 0.0
                         
-                    }
-                    else {
-                        
-                        newTransaction.expense = expenseTextFieldToDouble!
-                        newTransaction.dataTransaction = dateTextField.text!
-                        newTransaction.note = descriptionTextField.text!
-                        
-                        delegateExpense?.dataReceivedExpense(dataExpense: expenseTextField.text!)
-                        
-                        warningLabel.text = ""
-                        warningLabel.isEnabled = false
-                        
-                        navigationController?.popViewController(animated: true)
-                        
-                    }
-                    
-                    try! realm.write {
-                        if newTransaction.expense != 0 && newTransaction.dataTransaction != ""
-                            && categoryResult.categoryName != "" {
-                            account.transactions.append(newTransaction)
-                            categoryResult.categories.append(newTransaction)
+                        try! realm.write {
+                            if newTransaction.expense != 0 && newTransaction.dataTransaction != ""
+                                && categoryResult.categoryName != "" {
+                                account.transactions.append(newTransaction)
+                                categoryResult.categories.append(newTransaction)
+                            }
                         }
+                        
                     }
                     
                 }
                 
             }
+            
+            delegateExpense?.dataReceivedExpense(dataExpense: expenseTextField.text!)
+            
+            navigationController?.popViewController(animated: true)
+            
         }
+        
     }
     
     //funkcja ogranicza wprowadzana wartosc do dziesietnej i tylko liczby

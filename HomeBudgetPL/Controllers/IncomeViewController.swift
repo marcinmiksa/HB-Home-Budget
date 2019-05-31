@@ -105,8 +105,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        // MARK: obsluz wyjatek - probujemy zapisac transakcje, gdy nie mamy kategorii
-        categoryTextField.text = category[row].categoryName
+        categoryTextField.text? = category[row].categoryName
         
         self.view.endEditing(false)
         
@@ -118,49 +117,50 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         let categoryResults = realm.objects(Categories.self)
         let accountResults = realm.objects(Account.self)
+        let incomeTextFieldToDouble = Double(incomeTextField.text!)
         
-        if let account = accountResults.first {
+        if incomeTextField.text == "" || incomeTextFieldToDouble == 0
+            || categoryTextField.text == "" || dateTextField.text == "" {
             
-            for categoryResult in categoryResults {
+            warningLabel.text = "Wprowadź wszystkie dane"
+            warningLabel.isEnabled = true
+            
+        }
+            
+        else {
+            
+            newTransaction.income = incomeTextFieldToDouble!
+            newTransaction.dataTransaction = dateTextField.text!
+            newTransaction.note = descriptionTextField.text!
+            
+            warningLabel.text = ""
+            warningLabel.isEnabled = false
+            
+            if let account = accountResults.first {
                 
-                if categoryResult.categoryName == categoryTextField.text! {
+                for categoryResult in categoryResults {
                     
-                    let incomeTextFieldToDouble = Double(incomeTextField.text!)
-                    newTransaction.income = incomeTextFieldToDouble ?? 0.0
-                    
-                    if incomeTextField.text == "" || incomeTextFieldToDouble == 0
-                        || categoryTextField.text == "" || dateTextField.text == "" {
+                    if categoryResult.categoryName == categoryTextField.text! {
                         
-                        warningLabel.text = "Wprowadź wszystkie dane"
-                        warningLabel.isEnabled = true
+                        newTransaction.income = incomeTextFieldToDouble ?? 0.0
                         
-                    }
-                    else {
-                        
-                        newTransaction.income = incomeTextFieldToDouble!
-                        newTransaction.dataTransaction = dateTextField.text!
-                        newTransaction.note = descriptionTextField.text!
-                        
-                        delegateIncome?.dataReceivedIncome(dataIncome: incomeTextField.text!)
-                        
-                        warningLabel.text = ""
-                        warningLabel.isEnabled = false
-                        
-                        navigationController?.popViewController(animated: true)
-                        
-                    }
-                    
-                    try! realm.write {
-                        if newTransaction.income != 0 && newTransaction.dataTransaction != ""
-                            && categoryResult.categoryName != "" {
-                            account.transactions.append(newTransaction)
-                            categoryResult.categories.append(newTransaction)
+                        try! realm.write {
+                            if newTransaction.income != 0 && newTransaction.dataTransaction != ""
+                                && categoryResult.categoryName != "" {
+                                account.transactions.append(newTransaction)
+                                categoryResult.categories.append(newTransaction)
+                            }
                         }
+                        
                     }
                     
                 }
                 
             }
+            
+            delegateIncome?.dataReceivedIncome(dataIncome: incomeTextField.text!)
+            
+            navigationController?.popViewController(animated: true)
             
         }
         
