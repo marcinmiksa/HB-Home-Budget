@@ -1,6 +1,7 @@
 import UIKit
 import RealmSwift
 import ChameleonFramework
+import SwipeCellKit
 
 class TransactionsTableViewController: UITableViewController {
     
@@ -34,7 +35,7 @@ class TransactionsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SwipeTableViewCell
         
         if let transaction = transactions?[indexPath.row] {
             
@@ -69,6 +70,8 @@ class TransactionsTableViewController: UITableViewController {
             
         }
         
+        cell.delegate = self
+        
         return cell
         
     }
@@ -78,6 +81,35 @@ class TransactionsTableViewController: UITableViewController {
         let realm = try! Realm()
         
         transactions = realm.objects(Transactions.self).sorted(byKeyPath: "dataTransaction", ascending: false)
+        
+    }
+    
+}
+
+// usuwanie wybranej transakcji
+extension TransactionsTableViewController: SwipeTableViewCellDelegate {
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+            
+            let realm = try! Realm()
+            
+            try! realm.write {
+                
+                realm.delete((self.transactions?[indexPath.row])!)
+                
+            }
+            
+            tableView.reloadData()
+            
+        }
+
+        deleteAction.image = UIImage(named: "delete-icon")
+        
+        return [deleteAction]
         
     }
     

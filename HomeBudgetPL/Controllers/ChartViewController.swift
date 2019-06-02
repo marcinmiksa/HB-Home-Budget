@@ -33,12 +33,12 @@ class ChartViewController: UIViewController {
             for i in 0..<categoriesCount {
                 
                 let dataEntry = PieChartDataEntry(value:categories?[i].categories.sum(ofProperty: transactions) ?? 0.0, label: categories?[i].categoryName)
-                let colour = UIColor(hexString: (categories?[i].categoryColor) ?? "#000000")
+                let color = UIColor(hexString: (categories?[i].categoryColor) ?? "#000000")
                 
                 if dataEntry.value != 0 {
                     
                     dataEntries.append(dataEntry)
-                    colors.append(colour!)
+                    colors.append(color!)
                     
                 }
                 
