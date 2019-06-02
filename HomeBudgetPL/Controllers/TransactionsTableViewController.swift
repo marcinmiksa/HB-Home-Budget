@@ -48,7 +48,7 @@ class TransactionsTableViewController: UITableViewController {
                 
                 cell.detailTextLabel?.text =
                     
-                "Przychód: \(transaction.income) zł \nKategoria: \(categoryNameObject?.firstObject ?? "") \nOpis: \(transaction.note)"
+                "Przychód: \(transaction.income) PLN \nKategoria: \(categoryNameObject?.firstObject ?? "") \nOpis: \(transaction.note)"
                 
                 // kolor zielony
                 cell.textLabel?.textColor = UIColor(red: 0.1137, green: 0.8196, blue: 0.6314, alpha: 1.0)
@@ -60,7 +60,7 @@ class TransactionsTableViewController: UITableViewController {
                 
                 cell.detailTextLabel?.text =
                     
-                "Wydatek: \(transaction.expense) zł \nKategoria: \(categoryNameObject?.firstObject ?? "") \nOpis: \(transaction.note)"
+                "Wydatek: \(transaction.expense) PLN \nKategoria: \(categoryNameObject?.firstObject ?? "") \nOpis: \(transaction.note)"
                 
                 // kolor czerwony
                 cell.textLabel?.textColor = UIColor(red: 1, green: 0.4196, blue: 0.4196, alpha: 1.0)

@@ -54,7 +54,7 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
         account.balance = Double(dataBalance)!
         
         try! realm.write() {
-            realm.add(account, update: .modified)
+            realm.add(account, update: true)
         }
         
     }

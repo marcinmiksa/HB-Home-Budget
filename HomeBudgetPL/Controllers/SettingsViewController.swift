@@ -118,8 +118,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    //funkcja ogranicza wprowadzana wartosc do dziesietnej i tylko liczby
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+}
+
+// rozszerzenie dla kontrolerow, funkcja ogranicza wprowadzanie wartosci dziesietnych
+extension UIViewController {
+    
+    @objc(textField:shouldChangeCharactersInRange:replacementString:) func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         guard let oldText = textField.text, let r = Range(range, in: oldText) else {
             
@@ -146,5 +150,4 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         return isNumeric && numberOfDots <= 1 && numberOfDecimalDigits <= 2
         
     }
-    
 }
