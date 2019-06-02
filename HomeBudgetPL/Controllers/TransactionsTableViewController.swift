@@ -1,5 +1,6 @@
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class TransactionsTableViewController: UITableViewController {
     
@@ -49,9 +50,8 @@ class TransactionsTableViewController: UITableViewController {
                     
                 "Przychód: \(transaction.income) PLN \nKategoria: \(categoryNameObject?.firstObject ?? "") \nOpis: \(transaction.note)"
                 
-                // kolor zielony
-                cell.textLabel?.textColor = UIColor(red: 0.1137, green: 0.8196, blue: 0.6314, alpha: 1.0)
-                cell.detailTextLabel?.textColor = UIColor(red: 0.1137, green: 0.8196, blue: 0.6314, alpha: 1.0)
+                cell.textLabel?.textColor = UIColor.flatGreenDark
+                cell.detailTextLabel?.textColor = UIColor.flatGreenDark
                 
             } else {
                 
@@ -62,9 +62,8 @@ class TransactionsTableViewController: UITableViewController {
                     
                 "Wydatek: \(transaction.expense) PLN \nKategoria: \(categoryNameObject?.firstObject ?? "") \nOpis: \(transaction.note)"
                 
-                // kolor czerwony
-                cell.textLabel?.textColor = UIColor(red: 1, green: 0.4196, blue: 0.4196, alpha: 1.0)
-                cell.detailTextLabel?.textColor = UIColor(red: 1, green: 0.4196, blue: 0.4196, alpha: 1.0)
+                cell.textLabel?.textColor = UIColor.flatRedDark
+                cell.detailTextLabel?.textColor = UIColor.flatRedDark
                 
             }
             

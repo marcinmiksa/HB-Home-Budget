@@ -2,22 +2,25 @@ import UIKit
 import RealmSwift
 import Charts
 import ChartsRealm
+import ChameleonFramework
 
 class ChartViewController: UIViewController {
     
-    @IBOutlet weak var pieChart: PieChartView!
+    @IBOutlet weak var incomesPieChart: PieChartView!
+    @IBOutlet weak var expensesPieChart: PieChartView!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        updateTransactionsChart()
+        transactionsChart(chartChoice: incomesPieChart, transactions: "income")
+        transactionsChart(chartChoice: expensesPieChart, transactions: "expense")
         
         // print(getCategories() as Any)
         
     }
     
-    func updateTransactionsChart() {
+    func transactionsChart(chartChoice: PieChartView, transactions: String) {
         
         var dataEntries: [PieChartDataEntry] = []
         
@@ -27,11 +30,9 @@ class ChartViewController: UIViewController {
             
             for i in 0..<count {
                 
-                let dataEntry = PieChartDataEntry(value:categoriesCount?[i].categories.sum(ofProperty: "income") ?? 0.0, label: categoriesCount?[i].categoryName)
+                let dataEntry = PieChartDataEntry(value:categoriesCount?[i].categories.sum(ofProperty: transactions) ?? 0.0, label: categoriesCount?[i].categoryName)
                 
                 dataEntries.append(dataEntry)
-                
-                // print(categoriesCount?[i].categoryName as Any)
                 
             }
             
@@ -46,11 +47,7 @@ class ChartViewController: UIViewController {
             // ustawiamy losowe kolory dla kazdej kategorii
             for _ in 0..<count {
                 
-                let red = Double(arc4random_uniform(256))
-                let green = Double(arc4random_uniform(256))
-                let blue = Double(arc4random_uniform(256))
-                
-                let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
+                let color = UIColor.randomFlat
                 colors.append(color)
                 
             }
@@ -61,7 +58,7 @@ class ChartViewController: UIViewController {
         
         let chartData = PieChartData(dataSet: chartDataSet)
         
-        pieChart.data = chartData
+        chartChoice.data = chartData
         
     }
     

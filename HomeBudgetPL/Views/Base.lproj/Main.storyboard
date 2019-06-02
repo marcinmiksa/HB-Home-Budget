@@ -255,18 +255,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4F-hl-L63" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="45" y="329" width="325" height="238"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="tx6-5T-arn">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L4F-hl-L63" userLabel="Pie Chart Incomes" customClass="PieChartView" customModule="Charts">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="362.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8l-GK-nIb" userLabel="Pie Chart Expenses" customClass="PieChartView" customModule="Charts">
+                                        <rect key="frame" x="0.0" y="362.5" width="414" height="362.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="clc-qK-qcT" firstAttribute="bottom" secondItem="tx6-5T-arn" secondAttribute="bottom" id="8an-wP-3ye"/>
+                            <constraint firstItem="tx6-5T-arn" firstAttribute="top" secondItem="clc-qK-qcT" secondAttribute="top" id="Lig-Tp-RI0"/>
+                            <constraint firstItem="clc-qK-qcT" firstAttribute="trailing" secondItem="tx6-5T-arn" secondAttribute="trailing" id="dzm-lq-Lcv"/>
+                            <constraint firstItem="tx6-5T-arn" firstAttribute="leading" secondItem="clc-qK-qcT" secondAttribute="leading" id="xAh-Py-3b0"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="clc-qK-qcT"/>
                     </view>
                     <navigationItem key="navigationItem" title="Wykres" id="Wcu-ZW-m3F"/>
                     <connections>
-                        <outlet property="pieChart" destination="L4F-hl-L63" id="yfI-T4-eUz"/>
+                        <outlet property="expensesPieChart" destination="Y8l-GK-nIb" id="1zf-ex-sQM"/>
+                        <outlet property="incomesPieChart" destination="L4F-hl-L63" id="yfI-T4-eUz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="toy-J4-dI8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -323,9 +338,6 @@
                         <viewLayoutGuide key="safeArea" id="5KN-EA-jcT"/>
                     </view>
                     <navigationItem key="navigationItem" title="Ustawienia" id="IYw-Wh-BuA"/>
-                    <connections>
-                        <outlet property="initBalanceButtonView" destination="ymW-PL-L6k" id="bmn-IM-niH"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nKx-Pp-SHd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

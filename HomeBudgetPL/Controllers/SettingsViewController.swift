@@ -17,11 +17,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     var delegateBalance : CanReceiveBalance?
     
-    @IBOutlet weak var initBalanceButtonView: UIButton!
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        self.initbalanceTextField.delegate = self
         
     }
     
@@ -45,8 +45,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             
             alertTextField.placeholder = "Wprowadź saldo"
             self.initbalanceTextField = alertTextField
-            
-            self.initbalanceTextField.delegate = self
             
         }
         
