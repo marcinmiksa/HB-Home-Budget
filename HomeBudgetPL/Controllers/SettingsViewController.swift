@@ -1,5 +1,6 @@
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 protocol CanReceiveBalance {
     
@@ -20,8 +21,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        self.initbalanceTextField.delegate = self
         
     }
     
@@ -46,6 +45,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             alertTextField.placeholder = "Wprowadź saldo"
             self.initbalanceTextField = alertTextField
             
+            self.initbalanceTextField.delegate = self
+            
         }
         
         alert.addAction(action)
@@ -67,9 +68,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         let allCategories = self.realm.objects(Categories.self)
         
         try! self.realm.write {
+            
             // usuwamy wszystkieg transakcje oraz kategorie po ustawieniu nowego salda
             self.realm.delete(allTransactions)
             self.realm.delete(allCategories)
+            
         }
         
     }
@@ -107,18 +110,25 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         let existCategory = categoryArray.contains(self.addCategorytextField.text!)
         
         try! self.realm.write {
+            
             let newCategory = Categories()
+            
             newCategory.categoryName = addCategorytextField.text!
+            newCategory.categoryColor = UIColor.randomFlat.hexValue()
+            
             if newCategory.categoryName != "" && existCategory == false {
+                
                 self.realm.add(newCategory)
+                
             }
+            
         }
         
     }
     
 }
 
-// rozszerzenie dla kontrolerow, funkcja ogranicza wprowadzanie wartosci dziesietnych
+// rozszerzenie dla kontrolerow, funkcja ogranicza wprowadzanie tylko wartosci dziesietnych
 extension UIViewController {
     
     @objc(textField:shouldChangeCharactersInRange:replacementString:) func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

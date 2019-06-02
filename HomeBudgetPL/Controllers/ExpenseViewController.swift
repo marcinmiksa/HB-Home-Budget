@@ -156,11 +156,15 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                     newTransaction.expense = Double(expenseTextField.text!) ?? 0.0
                     
                     try! realm.write {
+                        
                         if newTransaction.expense != 0 && newTransaction.dataTransaction != ""
                             && categoryResult.categoryName != "" {
+                            
                             account.transactions.append(newTransaction)
                             categoryResult.categories.append(newTransaction)
+                            
                         }
+                        
                     }
                     
                 }

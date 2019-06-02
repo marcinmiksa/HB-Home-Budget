@@ -15,9 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // inicjalizacja bazy danych Realm - przy zmianach w bazie trzeba niestety ja fizycznie kasowac bo sa bledy
         do {
+            
             _ = try Realm()
+            
         } catch {
+            
             print("Error realm \(error)")
+            
         }
         
         return true

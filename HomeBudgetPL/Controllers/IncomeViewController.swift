@@ -107,6 +107,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        // MARK: problem gdy przy pustej bazie wybierzemy kategorie z pusta komorka - wywala blad
         categoryTextField.text? = category[row].categoryName
         
         self.view.endEditing(false)
@@ -156,11 +157,15 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                     newTransaction.income = Double(incomeTextField.text!) ?? 0.0
                     
                     try! realm.write {
+                        
                         if newTransaction.income != 0 && newTransaction.dataTransaction != ""
                             && categoryResult.categoryName != "" {
+                            
                             account.transactions.append(newTransaction)
                             categoryResult.categories.append(newTransaction)
+                            
                         }
+                        
                     }
                     
                 }

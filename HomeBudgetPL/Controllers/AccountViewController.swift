@@ -59,8 +59,11 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
     
     func saveBalance() {
         
-        try! realm.write() {
-            realm.add(account, update: true)
+        try! self.realm.write() {
+            
+            // MARK: problem z ponownym ustawieniem salda poczatkowego 
+            realm.add(self.account, update: true)
+            
         }
         
     }

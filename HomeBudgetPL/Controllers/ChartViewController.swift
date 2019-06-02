@@ -13,52 +13,50 @@ class ChartViewController: UIViewController {
         
         super.viewDidLoad()
         
-        transactionsChart(chartChoice: incomesPieChart, transactions: "income")
-        transactionsChart(chartChoice: expensesPieChart, transactions: "expense")
+        transactionsChart(selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
+        transactionsChart(selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")
         
         // print(getCategories() as Any)
         
     }
     
-    func transactionsChart(chartChoice: PieChartView, transactions: String) {
+    func transactionsChart(selectChart: PieChartView, transactions: String, chartLabel: String) {
         
         var dataEntries: [PieChartDataEntry] = []
         
-        let categoriesCount = getCategories()
-        
-        if let count = categoriesCount?.count{
-            
-            for i in 0..<count {
-                
-                let dataEntry = PieChartDataEntry(value:categoriesCount?[i].categories.sum(ofProperty: transactions) ?? 0.0, label: categoriesCount?[i].categoryName)
-                
-                dataEntries.append(dataEntry)
-                
-            }
-            
-        }
-        
-        let chartDataSet = PieChartDataSet(entries: dataEntries, label: "")
+        let categories = getCategories()
         
         var colors: [UIColor] = []
         
-        if let count = categoriesCount?.count{
+        if let categoriesCount = categories?.count{
             
-            // ustawiamy losowe kolory dla kazdej kategorii
-            for _ in 0..<count {
+            for i in 0..<categoriesCount {
                 
-                let color = UIColor.randomFlat
-                colors.append(color)
+                let dataEntry = PieChartDataEntry(value:categories?[i].categories.sum(ofProperty: transactions) ?? 0.0, label: categories?[i].categoryName)
+                let colour = UIColor(hexString: (categories?[i].categoryColor) ?? "#000000")
+                
+                if dataEntry.value != 0 {
+                    
+                    dataEntries.append(dataEntry)
+                    colors.append(colour!)
+                    
+                }
                 
             }
             
         }
         
+        let chartDataSet = PieChartDataSet(entries: dataEntries, label: chartLabel)
+        
         chartDataSet.colors = colors
+        
+        let legend = selectChart.legend
+        legend.direction = .rightToLeft
+        legend.font = UIFont(name: "AvenirNext-Regular", size: 14)!
         
         let chartData = PieChartData(dataSet: chartDataSet)
         
-        chartChoice.data = chartData
+        selectChart.data = chartData
         
     }
     
