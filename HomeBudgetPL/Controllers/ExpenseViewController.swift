@@ -1,17 +1,17 @@
 import UIKit
 import RealmSwift
 
-protocol CanReceiveIncome {
+protocol CanReceiveExpense {
     
-    func dataReceivedIncome(dataIncome: String)
+    func dataReceivedExpense(dataExpense: String)
     
 }
 
-class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     
     let realm = try! Realm()
     
-    var delegateIncome : CanReceiveIncome?
+    var delegateExpense : CanReceiveExpense?
     
     var data: Results<Categories>!
     var category: [Categories] = []
@@ -20,9 +20,9 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     var categoryPicker = UIPickerView()
     
-    @IBOutlet weak var saveIncomePressed: UIBarButtonItem!
+    @IBOutlet weak var saveExpensePressed: UIBarButtonItem!
     @IBOutlet weak var warningLabel: UILabel!
-    @IBOutlet weak var incomeTextField: UITextField!
+    @IBOutlet weak var expenseTextField: UITextField!
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
@@ -31,9 +31,9 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         super.viewDidLoad()
         
-        self.incomeTextField.delegate = self
+        self.expenseTextField.delegate = self
         
-        incomeTextField.placeholder = "Kwota"
+        expenseTextField.placeholder = "Kwota"
         dateTextField.placeholder = "Data"
         categoryTextField.placeholder = "Kategoria"
         descriptionTextField.placeholder = "Dodatkowy opis"
@@ -52,9 +52,9 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         datePicker.datePickerMode = .date
         
-        datePicker.addTarget(self, action: #selector(IncomeViewController.dataChanged(dataPicker:)), for: .valueChanged)
+        datePicker.addTarget(self, action: #selector(ExpenseViewController.dataChanged(dataPicker:)), for: .valueChanged)
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(IncomeViewController.viewTapped(gestureRecognizer:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ExpenseViewController.viewTapped(gestureRecognizer:)))
         
         view.addGestureRecognizer(tapGesture)
         
@@ -113,9 +113,9 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
     }
     
-    @IBAction func incomeButtonPressed(_ sender: Any) {
+    @IBAction func expenseButtonPressed(_ sender: Any) {
         
-        if incomeTextField.text == "" || Double(incomeTextField.text!) == 0
+        if expenseTextField.text == "" || Double(expenseTextField.text!) == 0
             || categoryTextField.text == "" || dateTextField.text == "" {
             
             warningLabel.text = "Wprowadź wszystkie dane"
@@ -125,16 +125,16 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             
         else {
             
-            newTransaction.income = Double(incomeTextField.text!)!
+            newTransaction.expense = Double(expenseTextField.text!)!
             newTransaction.dataTransaction = dateTextField.text!
             newTransaction.note = descriptionTextField.text!
             
             warningLabel.text = ""
             warningLabel.isEnabled = false
             
-            saveIncome()
+            saveExpense()
             
-            delegateIncome?.dataReceivedIncome(dataIncome: incomeTextField.text!)
+            delegateExpense?.dataReceivedExpense(dataExpense: expenseTextField.text!)
             
             navigationController?.popViewController(animated: true)
             
@@ -142,7 +142,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
     }
     
-    func saveIncome() {
+    func saveExpense() {
         
         let categoryResults = realm.objects(Categories.self)
         let accountResults = realm.objects(Account.self)
@@ -153,10 +153,10 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                 
                 if categoryResult.categoryName == categoryTextField.text! {
                     
-                    newTransaction.income = Double(incomeTextField.text!) ?? 0.0
+                    newTransaction.expense = Double(expenseTextField.text!) ?? 0.0
                     
                     try! realm.write {
-                        if newTransaction.income != 0 && newTransaction.dataTransaction != ""
+                        if newTransaction.expense != 0 && newTransaction.dataTransaction != ""
                             && categoryResult.categoryName != "" {
                             account.transactions.append(newTransaction)
                             categoryResult.categories.append(newTransaction)

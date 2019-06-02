@@ -1,10 +1,9 @@
 import UIKit
 import RealmSwift
 
-class AccountViewController: UIViewController, CanReceive {
+class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveIncome, CanReceiveExpense {
     
     let realm = try! Realm()
-    let accountObject = Account()
     
     @IBOutlet weak var balanceLabel: UILabel!
     
@@ -15,12 +14,7 @@ class AccountViewController: UIViewController, CanReceive {
         // ustawienie "<" do przemieszczania sie miedzy controllerami
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-        let balanceValue = realm.object(ofType: Account.self, forPrimaryKey: 1)
-        
-        print(balanceValue ?? 0.0)
-        
-        // ustawienie wartosci poczatkowej, gdy uruchamiamy po raz pierwszy program
-        balanceLabel.text = "\(balanceValue?.balance ?? 0.0)"
+        showBalance()
         
     }
     
@@ -30,24 +24,70 @@ class AccountViewController: UIViewController, CanReceive {
             
             let secondVC = segue.destination as! SettingsViewController
             
-            secondVC.delegate = self
+            secondVC.delegateBalance = self
+            
+        }
+        
+        if segue.identifier == "incomeSegue" {
+            
+            let secondVC = segue.destination as! IncomeViewController
+            
+            secondVC.delegateIncome = self
+            
+        }
+        
+        if segue.identifier == "expenseSegue" {
+            
+            let secondVC = segue.destination as! ExpenseViewController
+            
+            secondVC.delegateExpense = self
             
         }
         
     }
     
-    func dataReceived(data: String) {
+    func dataReceivedBalance(dataBalance: String) {
         
-        balanceLabel.text = data
-        accountObject.balance = Double(data)!
+        let account = Account()
         
-        // dodatkowa stala pozwala na aktualizacje wartosci salda
-        let updatedAccount = Account()
-        updatedAccount.balance = Double(data)!
+        balanceLabel.text = dataBalance
+        account.balance = Double(dataBalance)!
         
         try! realm.write() {
-            realm.add(updatedAccount, update: true)
+            realm.add(account, update: true)
         }
+        
+    }
+    
+    func dataReceivedIncome(dataIncome: String) {
+        
+        var tmp = 0.0
+        tmp = Double(balanceLabel.text!)!
+        
+        let addTransations: Double = tmp + Double(dataIncome)!
+        balanceLabel.text = "\(addTransations)"
+        
+    }
+    
+    func dataReceivedExpense(dataExpense: String) {
+        
+        var tmp = 0.0
+        tmp = Double(balanceLabel.text!)!
+        
+        let oddsTransactions: Double = tmp - Double(dataExpense)!
+        balanceLabel.text = "\(oddsTransactions)"
+        
+    }
+    
+    func showBalance() {
+        
+        let totalIncomes: Double = realm.objects(Transactions.self).sum(ofProperty: "income")
+        let totalExpenses: Double = realm.objects(Transactions.self).sum(ofProperty: "expense")
+        let accountObject = realm.object(ofType: Account.self, forPrimaryKey: 0)
+        
+        // print(accountObject ?? 0.0)
+        
+        self.balanceLabel.text = String(format: "%.02f", (accountObject?.balance ?? 0.0) + totalIncomes - totalExpenses)
         
     }
     
