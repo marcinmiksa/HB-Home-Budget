@@ -26,10 +26,10 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HB Home Budget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUd-AT-Bpn">
-                                <rect key="frame" x="82" y="284.66666666666669" width="250" height="30"/>
+                                <rect key="frame" x="82" y="282.66666666666669" width="250" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="436-Qv-yb9"/>
-                                    <constraint firstAttribute="height" constant="30" id="ktL-cG-Cw8"/>
+                                    <constraint firstAttribute="height" constant="32" id="ktL-cG-Cw8"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="28"/>
                                 <nil key="textColor"/>

@@ -5,6 +5,8 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
     
     let realm = try! Realm()
     
+    let account = Account()
+    
     @IBOutlet weak var balanceLabel: UILabel!
     
     override func viewDidLoad() {
@@ -48,10 +50,14 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
     
     func dataReceivedBalance(dataBalance: String) {
         
-        let account = Account()
-        
         balanceLabel.text = dataBalance
         account.balance = Double(dataBalance)!
+        
+        saveBalance()
+        
+    }
+    
+    func saveBalance() {
         
         try! realm.write() {
             realm.add(account, update: true)
