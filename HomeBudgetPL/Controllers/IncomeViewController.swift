@@ -107,7 +107,6 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        // MARK: problem gdy przy pustej bazie wybierzemy kategorie z pusta komorka - wywala blad
         categoryTextField.text? = category[row].categoryName
         
         self.view.endEditing(false)

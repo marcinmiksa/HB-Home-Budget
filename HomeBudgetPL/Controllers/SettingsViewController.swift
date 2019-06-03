@@ -76,7 +76,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 
             }
             
-            // przekazanie wartosci z drugiego kontrolera do pierwszego
             self.delegateBalance?.dataReceivedBalance(dataBalance: initbalanceTextField.text!)
             
         }

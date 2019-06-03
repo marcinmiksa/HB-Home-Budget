@@ -33,11 +33,13 @@ class TransactionsTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return transactions?.count ?? 1
+        
     }
     
     
@@ -105,11 +107,27 @@ extension TransactionsTableViewController: SwipeTableViewCellDelegate {
             
             let realm = try! Realm()
             
-            try! realm.write {
+            let accountResults = realm.objects(Account.self)
+            
+            if let account = accountResults.first {
                 
-                realm.delete((self.transactions?[indexPath.row])!)
-                
-                // MARK: POPRAW DZIALANIE USUWANIA TRANSAKCJI - NIE ZMIENIA SIE BALANCE W REALM I NA STRONIE GLOWNEJ
+                try! realm.write {
+                    
+                    if self.transactions?[indexPath.row].income != 0 {
+                        
+                        account.balance = account.balance - (self.transactions?[indexPath.row].income ?? 0.0)
+                        
+                    } else {
+                        
+                        account.balance = account.balance + (self.transactions?[indexPath.row].expense ?? 0.0)
+                        
+                    }
+                    
+                    realm.add(account, update: true)
+                    
+                    realm.delete((self.transactions?[indexPath.row])!)
+                    
+                }
                 
             }
             
