@@ -57,21 +57,27 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     func saveInitBalance() {
         
-        if initbalanceTextField.text != "" {
-            
-            // przekazanie wartosci z drugiego kontrolera do pierwszego
-            self.delegateBalance?.dataReceivedBalance(dataBalance: initbalanceTextField.text!)
-            
-        }
+        let account = Account()
         
         let allTransactions = self.realm.objects(Transactions.self)
         let allCategories = self.realm.objects(Categories.self)
         
-        try! self.realm.write {
+        if initbalanceTextField.text != "" {
             
-            // usuwamy wszystkieg transakcje oraz kategorie po ustawieniu nowego salda
-            self.realm.delete(allTransactions)
-            self.realm.delete(allCategories)
+            account.balance = Double((initbalanceTextField.text!))!
+            
+            try! self.realm.write {
+                
+                self.realm.add(account, update: true)
+                
+                // usuwamy wszystkieg transakcje oraz kategorie po ustawieniu nowego salda
+                self.realm.delete(allTransactions)
+                self.realm.delete(allCategories)
+                
+            }
+            
+            // przekazanie wartosci z drugiego kontrolera do pierwszego
+            self.delegateBalance?.dataReceivedBalance(dataBalance: initbalanceTextField.text!)
             
         }
         
@@ -106,6 +112,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     func saveCategory() {
         
         let categoryArray = Array(self.realm.objects(Categories.self).value(forKey: "categoryName") as! [String])
+        
         // sprawdza czy wpisana kategoria w addCategorytextField jest w naszej tablicy kategorii
         let existCategory = categoryArray.contains(self.addCategorytextField.text!)
         

@@ -3,9 +3,17 @@ import RealmSwift
 import ChameleonFramework
 import SwipeCellKit
 
+protocol CanReceiveTransaction {
+    
+    func dataReceivedTransactionsTable(dataTransaction: String)
+    
+}
+
 class TransactionsTableViewController: UITableViewController {
     
     var transactions: Results<Transactions>?
+    
+    var delegateTransaction: CanReceiveTransaction?
     
     override func viewDidLoad() {
         
@@ -101,12 +109,16 @@ extension TransactionsTableViewController: SwipeTableViewCellDelegate {
                 
                 realm.delete((self.transactions?[indexPath.row])!)
                 
+                // MARK: POPRAW DZIALANIE USUWANIA TRANSAKCJI - NIE ZMIENIA SIE BALANCE W REALM I NA STRONIE GLOWNEJ
+                
             }
             
             tableView.reloadData()
             
+            self.delegateTransaction?.dataReceivedTransactionsTable(dataTransaction: "")
+            
         }
-
+        
         deleteAction.image = UIImage(named: "delete-icon")
         
         return [deleteAction]

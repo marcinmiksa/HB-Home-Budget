@@ -135,7 +135,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             
             saveIncome()
             
-            delegateIncome?.dataReceivedIncome(dataIncome: incomeTextField.text!)
+            delegateIncome?.dataReceivedIncome(dataIncome: "")
             
             navigationController?.popViewController(animated: true)
             
@@ -160,6 +160,10 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                         
                         if newTransaction.income != 0 && newTransaction.dataTransaction != ""
                             && categoryResult.categoryName != "" {
+                            
+                            account.balance = account.balance + newTransaction.income
+                            
+                            realm.add(account, update: true)
                             
                             account.transactions.append(newTransaction)
                             categoryResult.categories.append(newTransaction)

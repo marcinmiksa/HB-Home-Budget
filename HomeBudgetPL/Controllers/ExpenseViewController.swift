@@ -134,7 +134,7 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             
             saveExpense()
             
-            delegateExpense?.dataReceivedExpense(dataExpense: expenseTextField.text!)
+            delegateExpense?.dataReceivedExpense(dataExpense: "")
             
             navigationController?.popViewController(animated: true)
             
@@ -159,6 +159,10 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                         
                         if newTransaction.expense != 0 && newTransaction.dataTransaction != ""
                             && categoryResult.categoryName != "" {
+                            
+                            account.balance = account.balance - newTransaction.expense
+                            
+                            realm.add(account, update: true)
                             
                             account.transactions.append(newTransaction)
                             categoryResult.categories.append(newTransaction)
