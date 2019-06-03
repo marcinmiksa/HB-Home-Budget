@@ -7,7 +7,7 @@ class Transactions : Object {
     @objc dynamic var income = 0.0
     @objc dynamic var expense = 0.0
     @objc dynamic var note = ""
-    @objc dynamic var dataTransaction = ""
+    @objc dynamic var dataTransaction = Date()
     
     let parentAccount = LinkingObjects(fromType: Account.self, property: "transactions")
     

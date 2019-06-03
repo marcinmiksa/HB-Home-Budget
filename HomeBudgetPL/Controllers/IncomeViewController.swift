@@ -79,7 +79,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateFormat = "yyyy.MM.dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
         dateTextField.text = dateFormatter.string(from: dataPicker.date)
         
@@ -107,6 +107,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        // MARK: przy wybraniu pustej kategorii fatal error index out of range
         categoryTextField.text? = category[row].categoryName
         
         self.view.endEditing(false)
@@ -126,7 +127,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         else {
             
             newTransaction.income = Double(incomeTextField.text!)!
-            newTransaction.dataTransaction = dateTextField.text!
+            newTransaction.dataTransaction = convertStringtToDate(strDate: dateTextField.text!)
             newTransaction.note = descriptionTextField.text!
             
             warningLabel.text = ""
@@ -157,8 +158,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
                     
                     try! realm.write {
                         
-                        if newTransaction.income != 0 && newTransaction.dataTransaction != ""
-                            && categoryResult.categoryName != "" {
+                        if newTransaction.income != 0 && categoryResult.categoryName != "" {
                             
                             account.balance = account.balance + newTransaction.income
                             
@@ -176,6 +176,17 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
             }
             
         }
+        
+    }
+    
+    func convertStringtToDate(strDate: String) -> Date! {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let date = dateFormatter.date(from: strDate)
+        
+        return date
         
     }
     

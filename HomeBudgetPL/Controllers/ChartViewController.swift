@@ -69,7 +69,7 @@ class ChartViewController: UIViewController {
         
     }
     
-    // MARK: date range calendar 
+    // MARK: zrob filtrowanie danych na wykresie
     @IBAction func buttonPressed(_ sender: UIButton) {
         
         if sender.tag == 1 {

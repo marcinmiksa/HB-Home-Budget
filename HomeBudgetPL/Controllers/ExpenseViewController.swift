@@ -79,7 +79,7 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateFormat = "yyyy.MM.dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
         dateTextField.text = dateFormatter.string(from: dataPicker.date)
         
@@ -126,7 +126,7 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         else {
             
             newTransaction.expense = Double(expenseTextField.text!)!
-            newTransaction.dataTransaction = dateTextField.text!
+            newTransaction.dataTransaction = convertStringtToDate(strDate: dateTextField.text!)
             newTransaction.note = descriptionTextField.text!
             
             warningLabel.text = ""
@@ -157,8 +157,7 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                     
                     try! realm.write {
                         
-                        if newTransaction.expense != 0 && newTransaction.dataTransaction != ""
-                            && categoryResult.categoryName != "" {
+                        if newTransaction.expense != 0 && categoryResult.categoryName != "" {
                             
                             account.balance = account.balance - newTransaction.expense
                             
@@ -176,6 +175,17 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             }
             
         }
+        
+    }
+    
+    func convertStringtToDate(strDate: String) -> Date! {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let date = dateFormatter.date(from: strDate)
+        
+        return date
         
     }
     
