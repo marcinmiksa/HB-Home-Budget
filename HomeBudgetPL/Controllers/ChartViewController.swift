@@ -17,6 +17,8 @@ class ChartViewController: UIViewController {
         transactionsChart(selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
         transactionsChart(selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")
         
+        SWFrameButton.appearance().tintColor = .flatBlack
+        
     }
     
     func transactionsChart(selectChart: PieChartView, transactions: String, chartLabel: String) {
@@ -68,5 +70,22 @@ class ChartViewController: UIViewController {
     }
     
     // MARK: date range calendar 
+    @IBAction func buttonPressed(_ sender: UIButton) {
+        
+        if sender.tag == 1 {
+            
+            print("1")
+            
+        } else if sender.tag == 2 {
+            
+            print("2")
+            
+        } else {
+            
+            print("3")
+            
+        }
+        
+    }
     
 }
