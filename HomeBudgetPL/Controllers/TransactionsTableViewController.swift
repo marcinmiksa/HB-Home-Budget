@@ -54,7 +54,7 @@ class TransactionsTableViewController: UITableViewController {
             
             if transaction.income != 0.0 {
                 
-                cell.textLabel?.text = "Data: \(transaction.dataTransaction)"
+                cell.textLabel?.text = "Data: \(convertDateToString(date: transaction.dataTransaction) ?? "")"
                 cell.detailTextLabel?.numberOfLines = 6;
                 
                 cell.detailTextLabel?.text =
@@ -66,7 +66,7 @@ class TransactionsTableViewController: UITableViewController {
                 
             } else {
                 
-                cell.textLabel?.text = "Data: \(transaction.dataTransaction)"
+                cell.textLabel?.text = "Data: \(convertDateToString(date: transaction.dataTransaction) ?? "")"
                 cell.detailTextLabel?.numberOfLines = 3;
                 
                 cell.detailTextLabel?.text =

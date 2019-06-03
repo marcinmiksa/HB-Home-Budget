@@ -178,15 +178,4 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         
     }
     
-    func convertStringtToDate(strDate: String) -> Date! {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        let date = dateFormatter.date(from: strDate)
-        
-        return date
-        
-    }
-    
 }

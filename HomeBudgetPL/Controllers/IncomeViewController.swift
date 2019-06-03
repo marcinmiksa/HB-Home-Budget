@@ -179,15 +179,4 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
     }
     
-    func convertStringtToDate(strDate: String) -> Date! {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        let date = dateFormatter.date(from: strDate)
-        
-        return date
-        
-    }
-    
 }

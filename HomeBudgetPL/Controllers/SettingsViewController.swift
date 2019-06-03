@@ -134,9 +134,10 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
 }
 
-// rozszerzenie dla kontrolerow, funkcja ogranicza wprowadzanie tylko wartosci dziesietnych
+// rozszerzenie dla kontrolerow
 extension UIViewController {
     
+    // funkcja ogranicza wprowadzanie tylko wartosci dziesietnych
     @objc(textField:shouldChangeCharactersInRange:replacementString:) func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         guard let oldText = textField.text, let r = Range(range, in: oldText) else {
@@ -164,4 +165,27 @@ extension UIViewController {
         return isNumeric && numberOfDots <= 1 && numberOfDecimalDigits <= 2
         
     }
+    
+    // zamiana string na date
+    func convertStringtToDate(strDate: String) -> Date! {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let date = dateFormatter.date(from: strDate)
+        
+        return date
+        
+    }
+    
+    // zamiana daty na string
+    func convertDateToString(date : Date ) -> String! {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let date = dateFormatter.string(from: date)
+        
+        return date
+    }
+    
 }
