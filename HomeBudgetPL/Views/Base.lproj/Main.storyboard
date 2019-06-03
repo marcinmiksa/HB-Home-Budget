@@ -247,7 +247,7 @@
             </objects>
             <point key="canvasLocation" x="174" y="745"/>
         </scene>
-        <!--Wykres-->
+        <!--Raport-->
         <scene sceneID="I6p-hK-ZlK">
             <objects>
                 <viewController id="EMu-tl-ltD" customClass="ChartViewController" customModule="HomeBudgetPL" sceneMemberID="viewController">
@@ -256,29 +256,59 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="tx6-5T-arn">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="188" width="404" height="625"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L4F-hl-L63" userLabel="Pie Chart Incomes" customClass="PieChartView" customModule="Charts">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="362.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="404" height="312.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8l-GK-nIb" userLabel="Pie Chart Expenses" customClass="PieChartView" customModule="Charts">
-                                        <rect key="frame" x="0.0" y="362.5" width="414" height="362.5"/>
+                                        <rect key="frame" x="0.0" y="312.5" width="404" height="312.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YvU-qd-Tik">
+                                <rect key="frame" x="10" y="108" width="394" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dx4-35-gnT" customClass="SWFrameButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="60"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                        <state key="normal" title="ostatnie 30 dni">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UEi-47-E6I" customClass="SWFrameButton">
+                                        <rect key="frame" x="133" y="0.0" width="128" height="60"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                        <state key="normal" title="bieżący miesiąc">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSy-up-EsI" customClass="SWFrameButton">
+                                        <rect key="frame" x="266" y="0.0" width="128" height="60"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                        <state key="normal" title="wszystko">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="clc-qK-qcT" firstAttribute="bottom" secondItem="tx6-5T-arn" secondAttribute="bottom" id="8an-wP-3ye"/>
-                            <constraint firstItem="tx6-5T-arn" firstAttribute="top" secondItem="clc-qK-qcT" secondAttribute="top" id="Lig-Tp-RI0"/>
-                            <constraint firstItem="clc-qK-qcT" firstAttribute="trailing" secondItem="tx6-5T-arn" secondAttribute="trailing" id="dzm-lq-Lcv"/>
+                            <constraint firstItem="tx6-5T-arn" firstAttribute="top" secondItem="YvU-qd-Tik" secondAttribute="bottom" constant="20" id="JAq-lL-9vW"/>
+                            <constraint firstItem="tx6-5T-arn" firstAttribute="top" secondItem="clc-qK-qcT" secondAttribute="top" constant="100" id="Lig-Tp-RI0"/>
+                            <constraint firstItem="clc-qK-qcT" firstAttribute="trailing" secondItem="YvU-qd-Tik" secondAttribute="trailing" constant="10" id="UzZ-3Q-RZP"/>
+                            <constraint firstItem="clc-qK-qcT" firstAttribute="trailing" secondItem="tx6-5T-arn" secondAttribute="trailing" constant="10" id="dzm-lq-Lcv"/>
+                            <constraint firstItem="YvU-qd-Tik" firstAttribute="top" secondItem="clc-qK-qcT" secondAttribute="top" constant="20" id="vVO-dS-eXg"/>
                             <constraint firstItem="tx6-5T-arn" firstAttribute="leading" secondItem="clc-qK-qcT" secondAttribute="leading" id="xAh-Py-3b0"/>
+                            <constraint firstItem="YvU-qd-Tik" firstAttribute="leading" secondItem="clc-qK-qcT" secondAttribute="leading" constant="10" id="z71-02-M8g"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="clc-qK-qcT"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Wykres" id="Wcu-ZW-m3F"/>
+                    <navigationItem key="navigationItem" title="Raport" id="Wcu-ZW-m3F"/>
                     <connections>
                         <outlet property="expensesPieChart" destination="Y8l-GK-nIb" id="1zf-ex-sQM"/>
                         <outlet property="incomesPieChart" destination="L4F-hl-L63" id="yfI-T4-eUz"/>

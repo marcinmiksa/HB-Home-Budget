@@ -3,6 +3,7 @@ import RealmSwift
 import Charts
 import ChartsRealm
 import ChameleonFramework
+import SWFrameButton
 
 class ChartViewController: UIViewController {
     
@@ -15,8 +16,6 @@ class ChartViewController: UIViewController {
         
         transactionsChart(selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
         transactionsChart(selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")
-        
-        // print(getCategories() as Any)
         
     }
     
