@@ -180,12 +180,14 @@ extension UIViewController {
     
     // zamiana daty na string
     func convertDateToString(date : Date ) -> String! {
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        let date = dateFormatter.string(from: date)
+        let string = dateFormatter.string(from: date)
         
-        return date
+        return string
+        
     }
     
 }

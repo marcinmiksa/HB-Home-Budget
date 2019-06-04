@@ -268,11 +268,11 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YvU-qd-Tik">
-                                <rect key="frame" x="10" y="108" width="394" height="50"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="YvU-qd-Tik">
+                                <rect key="frame" x="5" y="108" width="404" height="50"/>
                                 <subviews>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dx4-35-gnT" customClass="SWFrameButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="133.5" height="50"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                         <state key="normal" title="ostatnie 30 dni">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -282,7 +282,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UEi-47-E6I" customClass="SWFrameButton">
-                                        <rect key="frame" x="133" y="0.0" width="128" height="50"/>
+                                        <rect key="frame" x="135.5" y="0.0" width="133" height="50"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                         <state key="normal" title="bieżący miesiąc">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -292,7 +292,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSy-up-EsI" customClass="SWFrameButton">
-                                        <rect key="frame" x="266" y="0.0" width="128" height="50"/>
+                                        <rect key="frame" x="270.5" y="0.0" width="133.5" height="50"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                         <state key="normal" title="wszystko">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -309,11 +309,11 @@
                             <constraint firstItem="clc-qK-qcT" firstAttribute="bottom" secondItem="tx6-5T-arn" secondAttribute="bottom" id="8an-wP-3ye"/>
                             <constraint firstItem="tx6-5T-arn" firstAttribute="top" secondItem="YvU-qd-Tik" secondAttribute="bottom" constant="30" id="JAq-lL-9vW"/>
                             <constraint firstItem="tx6-5T-arn" firstAttribute="top" secondItem="clc-qK-qcT" secondAttribute="top" constant="100" id="Lig-Tp-RI0"/>
-                            <constraint firstItem="clc-qK-qcT" firstAttribute="trailing" secondItem="YvU-qd-Tik" secondAttribute="trailing" constant="10" id="UzZ-3Q-RZP"/>
+                            <constraint firstItem="clc-qK-qcT" firstAttribute="trailing" secondItem="YvU-qd-Tik" secondAttribute="trailing" constant="5" id="UzZ-3Q-RZP"/>
                             <constraint firstItem="clc-qK-qcT" firstAttribute="trailing" secondItem="tx6-5T-arn" secondAttribute="trailing" constant="10" id="dzm-lq-Lcv"/>
                             <constraint firstItem="YvU-qd-Tik" firstAttribute="top" secondItem="clc-qK-qcT" secondAttribute="top" constant="20" id="vVO-dS-eXg"/>
                             <constraint firstItem="tx6-5T-arn" firstAttribute="leading" secondItem="clc-qK-qcT" secondAttribute="leading" id="xAh-Py-3b0"/>
-                            <constraint firstItem="YvU-qd-Tik" firstAttribute="leading" secondItem="clc-qK-qcT" secondAttribute="leading" constant="10" id="z71-02-M8g"/>
+                            <constraint firstItem="YvU-qd-Tik" firstAttribute="leading" secondItem="clc-qK-qcT" secondAttribute="leading" constant="5" id="z71-02-M8g"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="clc-qK-qcT"/>
                     </view>
@@ -386,7 +386,7 @@
         <scene sceneID="omp-0D-NW3">
             <objects>
                 <viewController id="z7R-3Z-Y8I" customClass="ExpenseViewController" customModule="HomeBudgetPL" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Gzc-fh-xUS">
+                    <view key="view" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" id="Gzc-fh-xUS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

@@ -19,6 +19,11 @@ class ChartViewController: UIViewController {
         
         SWFrameButton.appearance().tintColor = .flatBlack
         
+        // MARK : nie dziala ustawienie kontrastu koloru tekstu na wykresie
+        // ustawienie czarnej czcionki na bialym tle wykresu kolowego
+        // incomesPieChart.data?.setValueTextColor(ContrastColorOf(color!, returnFlat: true))
+        // expensesPieChart.data?.setValueTextColor(ContrastColorOf(color!, returnFlat: true))
+        
     }
     
     func transactionsChart(selectChart: PieChartView, transactions: String, chartLabel: String) {
@@ -34,7 +39,7 @@ class ChartViewController: UIViewController {
             for i in 0..<categoriesCount {
                 
                 let dataEntry = PieChartDataEntry(value:categories?[i].categories.sum(ofProperty: transactions) ?? 0.0, label: categories?[i].categoryName)
-                let color = UIColor(hexString: (categories?[i].categoryColor) ?? "#000000")
+                let color = UIColor(hexString: ((categories?[i].categoryColor)!))
                 
                 if dataEntry.value != 0 {
                     
@@ -48,6 +53,17 @@ class ChartViewController: UIViewController {
         }
         
         let chartDataSet = PieChartDataSet(entries: dataEntries, label: chartLabel)
+        
+        // jesli nie ma danych nie wyswietla sie etykieta wykresu
+        if chartDataSet.entries.count != 0 {
+            
+            chartDataSet.label = chartLabel
+            
+        } else {
+            
+            chartDataSet.label = ""
+            
+        }
         
         chartDataSet.colors = colors
         
