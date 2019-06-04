@@ -14,37 +14,63 @@ class ChartViewController: UIViewController {
         
         super.viewDidLoad()
         
-        transactionsChart(selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
-        transactionsChart(selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")
+        transactionsChart(select: "all", selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
+        transactionsChart(select: "all", selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")
         
         SWFrameButton.appearance().tintColor = .flatBlack
         
-        // MARK : nie dziala ustawienie kontrastu koloru tekstu na wykresie
-        // ustawienie czarnej czcionki na bialym tle wykresu kolowego
-        // incomesPieChart.data?.setValueTextColor(ContrastColorOf(color!, returnFlat: true))
-        // expensesPieChart.data?.setValueTextColor(ContrastColorOf(color!, returnFlat: true))
+        setConstrastColor()
         
     }
     
-    func transactionsChart(selectChart: PieChartView, transactions: String, chartLabel: String) {
+    func transactionsChart(select: String, selectChart: PieChartView, transactions: String, chartLabel: String) {
         
         var dataEntries: [PieChartDataEntry] = []
         
         let categories = getCategories()
         
-        var colors: [UIColor] = []
+        var chartColors: [UIColor] = []
         
         if let categoriesCount = categories?.count{
             
             for i in 0..<categoriesCount {
                 
-                let dataEntry = PieChartDataEntry(value:categories?[i].categories.sum(ofProperty: transactions) ?? 0.0, label: categories?[i].categoryName)
-                let color = UIColor(hexString: ((categories?[i].categoryColor)!))
-                
-                if dataEntry.value != 0 {
+                if select == "all" {
                     
-                    dataEntries.append(dataEntry)
-                    colors.append(color!)
+                    let dataEntry = PieChartDataEntry(value:categories?[i].categories.sum(ofProperty: transactions) ?? 0.0, label: categories?[i].categoryName)
+                    
+                    setConstrastColor()
+                    
+                    let chartColor = UIColor(hexString: ((categories?[i].categoryColor)!))
+                    
+                    if dataEntry.value != 0 {
+                        
+                        dataEntries.append(dataEntry)
+                        chartColors.append(chartColor!)
+                        
+                    }
+                    
+                } else if select == "lastThirty" {
+                    
+                    let today = Date()
+                    let later = changeDaysBy(days: -30)
+                    
+                    let dataEntry = PieChartDataEntry(value:categories?[i].categories.filter("dataTransaction BETWEEN {%@, %@}", later, today).sum(ofProperty: transactions) ?? 0.0, label: categories?[i].categoryName)
+                    
+                    setConstrastColor()
+                    
+                    let colorChart = UIColor(hexString: ((categories?[i].categoryColor)!))
+                    
+                    if dataEntry.value != 0 {
+                        
+                        dataEntries.append(dataEntry)
+                        chartColors.append(colorChart!)
+                        
+                    }
+                    
+                } else {
+                    
+                    //MARK: zrob filtracje na biezacy miesiac
                     
                 }
                 
@@ -65,7 +91,7 @@ class ChartViewController: UIViewController {
             
         }
         
-        chartDataSet.colors = colors
+        chartDataSet.colors = chartColors
         
         let legend = selectChart.legend
         legend.direction = .rightToLeft
@@ -77,6 +103,16 @@ class ChartViewController: UIViewController {
         
     }
     
+    
+    // MARK: nie dziala bo ustawilem tylko dla koloru bialego a powinno automatycznie z koloru wykresu
+    // ustawienie kontrastu czcionki dla bialych kolorow
+    func setConstrastColor() {
+        
+        incomesPieChart.data?.setValueTextColor(ContrastColorOf(UIColor.white, returnFlat: true))
+        expensesPieChart.data?.setValueTextColor(ContrastColorOf(UIColor.white, returnFlat: true))
+        
+    }
+    
     func getCategories() -> Results<Categories>? {
         
         let realm = try! Realm()
@@ -85,22 +121,39 @@ class ChartViewController: UIViewController {
         
     }
     
-    // MARK: zrob filtrowanie danych na wykresie
     @IBAction func buttonPressed(_ sender: UIButton) {
         
         if sender.tag == 1 {
             
-            print("1")
+            transactionsChart(select: "lastThirty", selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
+            transactionsChart(select: "lastThirty", selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")
             
         } else if sender.tag == 2 {
             
-            print("2")
+            //transactionsChart(selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
+            //transactionsChart(selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")
             
         } else {
             
-            print("3")
+            transactionsChart(select: "all", selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
+            transactionsChart(select: "all", selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")
             
         }
+        
+    }
+    
+}
+
+extension UIViewController {
+    
+    func changeDaysBy(days : Int) -> Date {
+        
+        let currentDate = Date()
+        var dateComponents = DateComponents()
+        
+        dateComponents.day = days
+        
+        return Calendar.current.date(byAdding: dateComponents, to: currentDate)!
         
     }
     

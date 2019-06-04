@@ -144,3 +144,31 @@ extension TransactionsTableViewController: SwipeTableViewCellDelegate {
     }
     
 }
+
+extension UIViewController {
+    
+    // zamiana string na date
+    func convertStringtToDate(strDate: String) -> Date! {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let date = dateFormatter.date(from: strDate)
+        
+        return date
+        
+    }
+    
+    // zamiana daty na string
+    func convertDateToString(date : Date ) -> String! {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let string = dateFormatter.string(from: date)
+        
+        return string
+        
+    }
+    
+}
