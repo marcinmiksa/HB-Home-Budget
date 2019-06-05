@@ -63,11 +63,12 @@ class ChartViewController: UIViewController {
                         
                     }
                     
-                } else if select == "fromFIrstDayOfCurrentMonth" {
+                } else if select == "currentMonth" {
                     
                     let firstDayOfMonth = firstDayOfCurrentMonth()
+                    let lastDayOfMonth = lastDayOfCurrentMonth()
                     
-                    let dataEntry = PieChartDataEntry(value:categories?[i].categories.filter("dataTransaction BETWEEN {%@, %@}", firstDayOfMonth, currentDate).sum(ofProperty: transactions) ?? 0.0, label: categories?[i].categoryName)
+                    let dataEntry = PieChartDataEntry(value:categories?[i].categories.filter("dataTransaction BETWEEN {%@, %@}", firstDayOfMonth, lastDayOfMonth).sum(ofProperty: transactions) ?? 0.0, label: categories?[i].categoryName)
                     
                     let colorChart = UIColor(hexString: ((categories?[i].categoryColor)!))
                     
@@ -126,8 +127,8 @@ class ChartViewController: UIViewController {
             
         } else if sender.tag == 2 {
             
-            transactionsChart(select: "fromFIrstDayOfCurrentMonth", selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
-            transactionsChart(select: "fromFIrstDayOfCurrentMonth", selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")
+            transactionsChart(select: "currentMonth", selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
+            transactionsChart(select: "currentMonth", selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")
             
         } else {
             
@@ -153,7 +154,7 @@ extension UIViewController {
         
     }
     
-    // funkcja zwraca pierwszy dzien obecnego miesiaca
+    // funkcja zwraca pierwszy dzien miesiaca
     func firstDayOfCurrentMonth() -> Date {
         
         var calendar = Calendar.current
@@ -161,6 +162,13 @@ extension UIViewController {
         calendar.timeZone = NSTimeZone(name: "GMT")! as TimeZone
         
         return calendar.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: Date())))!
+    }
+    
+    // funkcja zwraca ostatni dzien miesiaca
+    func lastDayOfCurrentMonth() -> Date {
+        
+        return Calendar.current.date(byAdding: DateComponents(month: 1, day: -1), to: self.firstDayOfCurrentMonth())!
+        
     }
     
 }
