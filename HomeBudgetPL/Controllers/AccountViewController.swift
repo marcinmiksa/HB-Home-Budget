@@ -6,6 +6,7 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
     let realm = try! Realm()
     
     @IBOutlet weak var balanceLabel: UILabel!
+    @IBOutlet weak var plnLabel: UILabel!
     
     override func viewDidLoad() {
         
@@ -83,8 +84,16 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
     func showBalance() {
         
         let accountObject = realm.object(ofType: Account.self, forPrimaryKey: 0)
+        let actualBalance = accountObject!.balance
         
-        self.balanceLabel.text = String(format: "%.02f", (accountObject?.balance ?? 0.0))
+        self.balanceLabel.text = String(format: "%.02f", actualBalance)
+        
+        if actualBalance < 0 {
+            
+            balanceLabel.textColor = UIColor.flatRed
+            plnLabel.textColor = UIColor.flatRed
+            
+        }
         
     }
     
