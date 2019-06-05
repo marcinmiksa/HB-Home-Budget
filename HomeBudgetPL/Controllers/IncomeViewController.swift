@@ -46,7 +46,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         // kalendarz
         let datePicker = UIDatePicker()
         
-        // ustawienie jezyka pl - kalendarz
+        // ustawienie jezyka pl kalendarza
         let loc = Locale(identifier: "pl")
         datePicker.locale = loc
         
@@ -107,7 +107,6 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        // MARK: przy wybraniu pustej kategorii fatal error index out of range
         categoryTextField.text? = category[row].categoryName
         
         self.view.endEditing(false)

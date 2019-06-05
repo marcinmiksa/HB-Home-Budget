@@ -28,7 +28,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
         let alert = UIAlertController(title: "Ustaw saldo początkowe", message: "Zmiana powoduje reset salda oraz usuwa wszystkie kategorie!", preferredStyle: .alert)
         
-        // zmiana koloru komunikatu w UIAlertController
+        // zmiana koloru tekstu alertu
         alert.setValue(NSAttributedString(string: alert.message!, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.regular), NSAttributedString.Key.foregroundColor : UIColor.red]), forKey: "attributedMessage")
         
         let cancel = UIAlertAction(title: "Anuluj", style: .cancel, handler: nil)
@@ -112,7 +112,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
         let categoryArray = Array(self.realm.objects(Categories.self).value(forKey: "categoryName") as! [String])
         
-        // sprawdza czy wpisana kategoria w addCategorytextField jest w naszej tablicy kategorii
+        // sprawdzamy czy kategorie sie nie powtarzaja
         let existCategory = categoryArray.contains(self.addCategorytextField.text!)
         
         try! self.realm.write {
@@ -137,7 +137,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
 // rozszerzenie dla kontrolerow
 extension UIViewController {
     
-    // funkcja ogranicza wprowadzanie tylko wartosci dziesietnych
+    // funkcja ograniczajaca - wprowadzamy tylko liczby
     @objc(textField:shouldChangeCharactersInRange:replacementString:) func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         guard let oldText = textField.text, let r = Range(range, in: oldText) else {

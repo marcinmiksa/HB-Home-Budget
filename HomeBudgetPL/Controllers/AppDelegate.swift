@@ -10,10 +10,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Thread.sleep(forTimeInterval: 2.0)
         
-        // sciezka do bazy
+        // sciezka do bazy danych
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         
-        // inicjalizacja bazy danych Realm - przy zmianach w bazie trzeba niestety ja fizycznie kasowac bo sa bledy
+        // inicjalizacja bazy danych Realm
         do {
             
             _ = try Realm()

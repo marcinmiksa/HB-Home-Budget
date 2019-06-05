@@ -46,7 +46,7 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         // kalendarz
         let datePicker = UIDatePicker()
         
-        // ustawienie jezyka pl - kalendarz
+        // ustawienie jezyka pl kalendarza
         let loc = Locale(identifier: "pl")
         datePicker.locale = loc
         

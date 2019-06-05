@@ -86,7 +86,7 @@ class ChartViewController: UIViewController {
         
         let chartDataSet = PieChartDataSet(entries: dataEntries, label: chartLabel)
         
-        // jesli nie ma danych nie wyswietla sie etykieta wykresu - chartLabel
+        // brak transakcji w bazie = nie wyswietla sie etykieta chartLabel
         if chartDataSet.entries.count != 0 {
             
             chartDataSet.label = chartLabel
@@ -157,7 +157,7 @@ extension UIViewController {
     func firstDayOfCurrentMonth() -> Date {
         
         var calendar = Calendar.current
-        // musimy ustawic strefe czasowa
+        // musimy ustawic strefe czasowa w celu poprawnego wyswietlania daty
         calendar.timeZone = NSTimeZone(name: "GMT")! as TimeZone
         
         return calendar.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: Date())))!
