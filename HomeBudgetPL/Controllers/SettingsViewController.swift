@@ -1,5 +1,6 @@
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 protocol CanReceiveBalance {
     
@@ -16,8 +17,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     var addCategorytextField = UITextField()
     
     var delegateBalance : CanReceiveBalance?
-    
-    @IBOutlet weak var initBalanceButtonView: UIButton!
     
     override func viewDidLoad() {
         
@@ -58,20 +57,27 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     func saveInitBalance() {
         
-        if initbalanceTextField.text != "" {
-            
-            // przekazanie wartosci z drugiego kontrolera do pierwszego
-            self.delegateBalance?.dataReceivedBalance(dataBalance: initbalanceTextField.text!)
-            
-        }
+        let account = Account()
         
         let allTransactions = self.realm.objects(Transactions.self)
         let allCategories = self.realm.objects(Categories.self)
         
-        try! self.realm.write {
-            // usuwamy wszystkieg transakcje oraz kategorie po ustawieniu nowego salda
-            self.realm.delete(allTransactions)
-            self.realm.delete(allCategories)
+        if initbalanceTextField.text != "" {
+            
+            account.balance = Double((initbalanceTextField.text!))!
+            
+            try! self.realm.write {
+                
+                self.realm.add(account, update: true)
+                
+                // usuwamy wszystkieg transakcje oraz kategorie po ustawieniu nowego salda
+                self.realm.delete(allTransactions)
+                self.realm.delete(allCategories)
+                
+            }
+            
+            self.delegateBalance?.dataReceivedBalance(dataBalance: initbalanceTextField.text!)
+            
         }
         
     }
@@ -105,24 +111,33 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     func saveCategory() {
         
         let categoryArray = Array(self.realm.objects(Categories.self).value(forKey: "categoryName") as! [String])
+        
         // sprawdza czy wpisana kategoria w addCategorytextField jest w naszej tablicy kategorii
         let existCategory = categoryArray.contains(self.addCategorytextField.text!)
         
         try! self.realm.write {
+            
             let newCategory = Categories()
+            
             newCategory.categoryName = addCategorytextField.text!
+            newCategory.categoryColor = UIColor.randomFlat.hexValue()
+            
             if newCategory.categoryName != "" && existCategory == false {
+                
                 self.realm.add(newCategory)
+                
             }
+            
         }
         
     }
     
 }
 
-// rozszerzenie dla kontrolerow, funkcja ogranicza wprowadzanie wartosci dziesietnych
+// rozszerzenie dla kontrolerow
 extension UIViewController {
     
+    // funkcja ogranicza wprowadzanie tylko wartosci dziesietnych
     @objc(textField:shouldChangeCharactersInRange:replacementString:) func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         guard let oldText = textField.text, let r = Range(range, in: oldText) else {
@@ -150,4 +165,5 @@ extension UIViewController {
         return isNumeric && numberOfDots <= 1 && numberOfDecimalDigits <= 2
         
     }
+    
 }

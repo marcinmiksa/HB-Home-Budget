@@ -1,7 +1,7 @@
 import UIKit
 import RealmSwift
 
-class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveIncome, CanReceiveExpense {
+class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveIncome, CanReceiveExpense, CanReceiveTransaction {
     
     let realm = try! Realm()
     
@@ -13,6 +13,8 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
         
         // ustawienie "<" do przemieszczania sie miedzy controllerami
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        createInitObject()
         
         showBalance()
         
@@ -44,50 +46,65 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
             
         }
         
+        if segue.identifier == "transactionSegue" {
+            
+            let secondVC = segue.destination as! TransactionsTableViewController
+            
+            secondVC.delegateTransaction = self
+            
+        }
+        
     }
     
     func dataReceivedBalance(dataBalance: String) {
         
-        let account = Account()
-        
-        balanceLabel.text = dataBalance
-        account.balance = Double(dataBalance)!
-        
-        try! realm.write() {
-            realm.add(account, update: true)
-        }
+        showBalance()
         
     }
     
     func dataReceivedIncome(dataIncome: String) {
         
-        var tmp = 0.0
-        tmp = Double(balanceLabel.text!)!
-        
-        let addTransations: Double = tmp + Double(dataIncome)!
-        balanceLabel.text = "\(addTransations)"
+        showBalance()
         
     }
     
     func dataReceivedExpense(dataExpense: String) {
         
-        var tmp = 0.0
-        tmp = Double(balanceLabel.text!)!
+        showBalance()
         
-        let oddsTransactions: Double = tmp - Double(dataExpense)!
-        balanceLabel.text = "\(oddsTransactions)"
+    }
+    
+    func dataReceivedTransactionsTable(dataTransaction: String) {
+        
+        showBalance()
         
     }
     
     func showBalance() {
         
-        let totalIncomes: Double = realm.objects(Transactions.self).sum(ofProperty: "income")
-        let totalExpenses: Double = realm.objects(Transactions.self).sum(ofProperty: "expense")
         let accountObject = realm.object(ofType: Account.self, forPrimaryKey: 0)
         
-        // print(accountObject ?? 0.0)
+        self.balanceLabel.text = String(format: "%.02f", (accountObject?.balance ?? 0.0))
         
-        self.balanceLabel.text = String(format: "%.02f", (accountObject?.balance ?? 0.0) + totalIncomes - totalExpenses)
+    }
+    
+    // tworzy objekt przy pierwszym uruchomieniu aplikacji - potrzebne do poprawnego zliczania salda
+    func createInitObject() {
+        
+        let account = Account()
+        
+        if realm.objects(Account.self).isEmpty {
+            
+            account.id = 0
+            account.balance = 0.00
+            
+            try! realm.write {
+                
+                realm.add(account, update: true)
+                
+            }
+            
+        }
         
     }
     
