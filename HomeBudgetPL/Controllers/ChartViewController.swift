@@ -19,11 +19,11 @@ class ChartViewController: UIViewController {
         
         SWFrameButton.appearance().tintColor = .flatBlack
         
-        setConstrastColor()
-        
     }
     
     func transactionsChart(select: String, selectChart: PieChartView, transactions: String, chartLabel: String) {
+        
+        let currentDate = Date()
         
         var dataEntries: [PieChartDataEntry] = []
         
@@ -39,8 +39,6 @@ class ChartViewController: UIViewController {
                     
                     let dataEntry = PieChartDataEntry(value:categories?[i].categories.sum(ofProperty: transactions) ?? 0.0, label: categories?[i].categoryName)
                     
-                    setConstrastColor()
-                    
                     let chartColor = UIColor(hexString: ((categories?[i].categoryColor)!))
                     
                     if dataEntry.value != 0 {
@@ -52,12 +50,9 @@ class ChartViewController: UIViewController {
                     
                 } else if select == "lastThirty" {
                     
-                    let today = Date()
-                    let later = changeDaysBy(days: -30)
+                    let changedDate = changeDateBy(days: -30)
                     
-                    let dataEntry = PieChartDataEntry(value:categories?[i].categories.filter("dataTransaction BETWEEN {%@, %@}", later, today).sum(ofProperty: transactions) ?? 0.0, label: categories?[i].categoryName)
-                    
-                    setConstrastColor()
+                    let dataEntry = PieChartDataEntry(value:categories?[i].categories.filter("dataTransaction BETWEEN {%@, %@}", changedDate, currentDate).sum(ofProperty: transactions) ?? 0.0, label: categories?[i].categoryName)
                     
                     let colorChart = UIColor(hexString: ((categories?[i].categoryColor)!))
                     
@@ -68,9 +63,20 @@ class ChartViewController: UIViewController {
                         
                     }
                     
-                } else {
+                } else if select == "fromFIrstDayOfCurrentMonth" {
                     
-                    //MARK: zrob filtracje na biezacy miesiac
+                    let firstDayOfMonth = firstDayOfCurrentMonth()
+                    
+                    let dataEntry = PieChartDataEntry(value:categories?[i].categories.filter("dataTransaction BETWEEN {%@, %@}", firstDayOfMonth, currentDate).sum(ofProperty: transactions) ?? 0.0, label: categories?[i].categoryName)
+                    
+                    let colorChart = UIColor(hexString: ((categories?[i].categoryColor)!))
+                    
+                    if dataEntry.value != 0 {
+                        
+                        dataEntries.append(dataEntry)
+                        chartColors.append(colorChart!)
+                        
+                    }
                     
                 }
                 
@@ -80,7 +86,7 @@ class ChartViewController: UIViewController {
         
         let chartDataSet = PieChartDataSet(entries: dataEntries, label: chartLabel)
         
-        // jesli nie ma danych nie wyswietla sie etykieta wykresu
+        // jesli nie ma danych nie wyswietla sie etykieta wykresu - chartLabel
         if chartDataSet.entries.count != 0 {
             
             chartDataSet.label = chartLabel
@@ -103,16 +109,6 @@ class ChartViewController: UIViewController {
         
     }
     
-    
-    // MARK: nie dziala bo ustawilem tylko dla koloru bialego a powinno automatycznie z koloru wykresu
-    // ustawienie kontrastu czcionki dla bialych kolorow
-    func setConstrastColor() {
-        
-        incomesPieChart.data?.setValueTextColor(ContrastColorOf(UIColor.white, returnFlat: true))
-        expensesPieChart.data?.setValueTextColor(ContrastColorOf(UIColor.white, returnFlat: true))
-        
-    }
-    
     func getCategories() -> Results<Categories>? {
         
         let realm = try! Realm()
@@ -130,8 +126,8 @@ class ChartViewController: UIViewController {
             
         } else if sender.tag == 2 {
             
-            //transactionsChart(selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
-            //transactionsChart(selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")
+            transactionsChart(select: "fromFIrstDayOfCurrentMonth", selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
+            transactionsChart(select: "fromFIrstDayOfCurrentMonth", selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")
             
         } else {
             
@@ -146,15 +142,25 @@ class ChartViewController: UIViewController {
 
 extension UIViewController {
     
-    func changeDaysBy(days : Int) -> Date {
+    // funkcja zwrace date kilka dni w przod lub wstecz
+    func changeDateBy(days : Int) -> Date {
         
-        let currentDate = Date()
         var dateComponents = DateComponents()
         
         dateComponents.day = days
         
-        return Calendar.current.date(byAdding: dateComponents, to: currentDate)!
+        return Calendar.current.date(byAdding: dateComponents, to: Date())!
         
+    }
+    
+    // funkcja zwraca pierwszy dzien obecnego miesiaca
+    func firstDayOfCurrentMonth() -> Date {
+        
+        var calendar = Calendar.current
+        // musimy ustawic strefe czasowa
+        calendar.timeZone = NSTimeZone(name: "GMT")! as TimeZone
+        
+        return calendar.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: Date())))!
     }
     
 }
