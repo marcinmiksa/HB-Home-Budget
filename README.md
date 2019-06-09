@@ -1,13 +1,24 @@
-# HomeBudgetPL
+# HB Home Budget
 
-HB HomeBudget is application to manage home budget
+HB Home Budget is an application to manage your home budget.
+
+## Features
+- addition and subtraction transactions </br>
+- displaying transactions history </br>
+- summary in graphic form with division into transaction categories </br>
 
 ## Requirements
-IOS 10
-Xcode 10
+- IOS 8.0+ </br>
+- Xcode 10 </br>
+- CocoaPods </br>
+- Reaml 3.15
 
-CocoaPods
-Reaml
+## Used CocoaPods library
+- Realm
+- Chart / ChartsRealm
+- ChameleonFramework
+- SWFrameButton
+- SwipeCellKit
 
-## Installing
-terminal - >pod install 
+## Instalation
+terminal -> pod install 
