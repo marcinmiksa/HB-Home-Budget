@@ -43,10 +43,8 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         data = realm.objects(Categories.self)
         category = Array(self.data)
         
-        // kalendarz
         let datePicker = UIDatePicker()
         
-        // ustawienie jezyka pl - kalendarz
         let loc = Locale(identifier: "pl")
         datePicker.locale = loc
         
@@ -60,7 +58,6 @@ class ExpenseViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         
         dateTextField.inputView = datePicker
         
-        // wybor kategorii
         categoryPicker.delegate = self
         
         categoryPicker.dataSource = self

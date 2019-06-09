@@ -6,12 +6,13 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
     let realm = try! Realm()
     
     @IBOutlet weak var balanceLabel: UILabel!
+    @IBOutlet weak var plnLabel: UILabel!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        // ustawienie "<" do przemieszczania sie miedzy controllerami
+        // ustawienie "<" na pasku nawigacyjnym
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         createInitObject()
@@ -83,12 +84,25 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
     func showBalance() {
         
         let accountObject = realm.object(ofType: Account.self, forPrimaryKey: 0)
+        let actualBalance = accountObject!.balance
         
-        self.balanceLabel.text = String(format: "%.02f", (accountObject?.balance ?? 0.0))
+        self.balanceLabel.text = String(format: "%.02f", actualBalance)
+        
+        if actualBalance >= 0 {
+            
+            balanceLabel.textColor = UIColor.black
+            plnLabel.textColor = UIColor.black
+            
+        } else {
+            
+            balanceLabel.textColor = UIColor.flatRed
+            plnLabel.textColor = UIColor.flatRed
+            
+        }
         
     }
     
-    // tworzy objekt przy pierwszym uruchomieniu aplikacji - potrzebne do poprawnego zliczania salda
+    // tworzymy objekt przy pierwszym uruchomieniu aplikacji - potrzebne do poprawnego zliczania salda
     func createInitObject() {
         
         let account = Account()

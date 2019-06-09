@@ -26,8 +26,6 @@ class TransactionsTableViewController: UITableViewController {
         
         tableView.reloadData()
         
-        // print(transactions ?? 0)
-        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -49,7 +47,7 @@ class TransactionsTableViewController: UITableViewController {
         
         if let transaction = transactions?[indexPath.row] {
             
-            // kategorie wyswietlaja sie jako tablica wiec musimy zrzutowac na NSArray i pobrac pierwszy element
+            // kategorie wyswietlaja sie jako tablica - musimy zrzutowac na NSArray i pobrac pierwszy element
             let categoryNameObject = transaction.parentCategories.value(forKey: "categoryName") as? NSArray
             
             if transaction.income != 0.0 {

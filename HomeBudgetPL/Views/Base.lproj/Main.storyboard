@@ -120,6 +120,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="balanceLabel" destination="4kt-5C-hHN" id="S0r-VA-2WF"/>
+                        <outlet property="plnLabel" destination="Cjv-9E-Y5j" id="j2I-jT-Rf8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
