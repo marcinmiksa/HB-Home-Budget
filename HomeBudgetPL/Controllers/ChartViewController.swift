@@ -130,7 +130,7 @@ class ChartViewController: UIViewController {
             transactionsChart(select: "currentMonth", selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
             transactionsChart(select: "currentMonth", selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")
             
-        } else {
+        } else if sender.tag == 3 {
             
             transactionsChart(select: "all", selectChart: incomesPieChart, transactions: "income", chartLabel: "Przychody: ")
             transactionsChart(select: "all", selectChart: expensesPieChart, transactions: "expense", chartLabel: "Wydatki: ")

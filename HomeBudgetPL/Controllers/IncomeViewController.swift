@@ -60,7 +60,6 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
         dateTextField.inputView = datePicker
         
-        // wybor kategorii
         categoryPicker.delegate = self
         
         categoryPicker.dataSource = self
@@ -87,6 +86,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
     }
     
+    // liczba kolumn
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         
         return 1
@@ -99,6 +99,7 @@ class IncomeViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
         
     }
     
+    // liczba wierszy
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         return category.count

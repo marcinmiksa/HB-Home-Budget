@@ -100,7 +100,6 @@ class AccountViewController: UIViewController, CanReceiveBalance, CanReceiveInco
             
         }
         
-        
     }
     
     // tworzymy objekt przy pierwszym uruchomieniu aplikacji - potrzebne do poprawnego zliczania salda
